@@ -5,22 +5,53 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 @Entity
+@Getter
+@Setter
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int userId;
-    @NonNull @Getter @Setter
-    private String FirstName;
-    @NonNull @Getter @Setter
-    private String LastName;
-    @NonNull @Getter @Setter
-    private String Email;
-    @NonNull @Getter @Setter
-    private String Password;
-    @Enumerated(EnumType.STRING)
-    private Role Role;
+    private Long userId;
 
-    public User() {};
-    public User(String FirstName, String LastName, String Email, String Password, Role Role) {}
+    @NonNull
+    private String firstName;
+
+    @NonNull
+    private String lastName;
+
+    @NonNull
+    private String email;
+
+    @NonNull
+    private String password;
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
+    @NonNull
+    private String phoneNumber;
+
+    @NonNull
+    private String address;
+
+    @NonNull
+    private String city;
+
+    @NonNull
+    private String image;
+
+    @NonNull
+    private LocalDateTime createdAt;
+
+    @OneToOne
+    @JoinColumn(name = "cart_id")
+    private Cart cart;
+
+    // Lets the cart be optionally injected
+    public User() {
+    }
 }
