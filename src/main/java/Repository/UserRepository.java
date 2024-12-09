@@ -26,6 +26,7 @@ public class UserRepository implements InitialFunctions<User> {
     private static final String SELECT_USER_SQL = "SELECT * FROM users WHERE userId = ?";
     private static final String SELECT_ALL_USER_SQL = "SELECT * FROM users";
     private static final String CHECK_UNIQUE_USER_SQL = "SELECT userId FROM users WHERE email = ?";
+    private static final String CHECK_USER_SQL = "SELECT userId FROM users WHERE email = ? AND password = ?";
 
     @Override
     public boolean add(User user) {
@@ -41,7 +42,7 @@ public class UserRepository implements InitialFunctions<User> {
             preparedStatement.setString(8, user.getAddress());
             preparedStatement.setString(9, user.getCity());
             preparedStatement.setString(10, user.getImage());
-            preparedStatement.setLong(11, user.getCart().getCartId());
+            preparedStatement.setString(11, user.getCart().getCartId());
             return preparedStatement.executeUpdate() > 0;
         } catch (SQLException e) {
             throw new RuntimeException("Error adding user", e);
@@ -148,6 +149,20 @@ public class UserRepository implements InitialFunctions<User> {
             }
         } catch (SQLException e) {
             throw new RuntimeException("Erreur lors de la vérification de l'unicité de l'utilisateur", e);
+        }
+    }
+
+    public boolean checkUser(String email, String password) {
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(CHECK_USER_SQL)) {
+
+            preparedStatement.setString(1, email);
+            preparedStatement.setString(2, password);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                return resultSet.next();
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Erreur lors de la vérification de l'existance de l'utilisateur", e);
         }
     }
 

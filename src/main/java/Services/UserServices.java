@@ -24,11 +24,21 @@ public class UserServices {
             Cart cart = new Cart();
             cart.setCartName(user.getFirstName() + " " + user.getLastName());
             cart.setCustomerId(user.getUserId());
-            userRepository.add(user);
             cartRepository.add(cart);
+            user.setCart(cart);
+            userRepository.add(user);
+            return true;
         }else return false;
+    }
 
+    public boolean login(User user) {
+        return (userRepository.checkUser(user.getEmail(), user.getPassword()));
+    }
 
+    public boolean editProfile(User user) {
+        if(user != null) {
+            return userRepository.edit(user);
+        }else return false;
     }
 
 }

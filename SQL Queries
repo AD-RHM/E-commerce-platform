@@ -1,6 +1,6 @@
 
 CREATE TABLE `users` (
-  `userId` bigint NOT NULL AUTO_INCREMENT,
+  `userId` varchar(255) NOT NULL,
   `FirstName` varchar(255) NOT NULL,
   `LastName` varchar(255) NOT NULL,
   `Email` varchar(255) NOT NULL,
@@ -12,10 +12,10 @@ CREATE TABLE `users` (
   `image` blob,
   `createdat` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `cart` bigint NOT NULL,
-  PRIMARY KEY (`userId`);
+  PRIMARY KEY (`userId`));
 
 CREATE TABLE `products` (
-  `product_id` bigint NOT NULL AUTO_INCREMENT,
+  `product_id` varchar(255) NOT NULL,
   `label` varchar(255) NOT NULL,
   `description` varchar(255) NOT NULL,
   `image` varchar(255) NOT NULL,
@@ -25,24 +25,24 @@ CREATE TABLE `products` (
   `quantity_left` int NOT NULL,
   `releasedDate` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`product_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+) ;
 
 CREATE TABLE `cart` (
-  `cart_id` bigint NOT NULL AUTO_INCREMENT,
-  `customer_id` bigint NOT NULL,
+  `cart_id` varchar(255) NOT NULL,
+  `customer_id` varchar(255) NOT NULL,
   `cart_name` varchar(255) NOT NULL,
   PRIMARY KEY (`cart_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+);
 
  CREATE TABLE `cart_products` (
-  `cart_id` bigint NOT NULL,
-  `product_id` bigint NOT NULL,
+  `cart_id` varchar(255) NOT NULL,
+  `product_id` varchar(255) NOT NULL,
   `quantity` int DEFAULT '1',
   PRIMARY KEY (`cart_id`,`product_id`),
   KEY `product_id` (`product_id`),
   CONSTRAINT `cart_products_ibfk_1` FOREIGN KEY (`cart_id`) REFERENCES `cart` (`cart_id`) ON DELETE CASCADE,
   CONSTRAINT `cart_products_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+);
 
 
 
