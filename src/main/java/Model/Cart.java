@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Getter
@@ -14,10 +15,9 @@ import java.util.List;
 public class Cart {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long cartId;
+    private String cartId = UUID.randomUUID().toString();
 
-    private Long customerId;
+    private String customerId;
 
     private String cartName;
 

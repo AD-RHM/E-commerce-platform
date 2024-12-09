@@ -15,31 +15,33 @@ import java.util.List;
 public class UserRepository implements InitialFunctions<User> {
 
     private final CartRepository cartRepository;
-    public UserRepository(CartRepository cartRepository) {
-        this.cartRepository = cartRepository;
+    public UserRepository() {
+        this.cartRepository = new CartRepository();
     }
 
     // Extracted constant for SQL query
-    private static final String INSERT_USER_SQL = "INSERT INTO users (FirstName, LastName, Email, Password, role, PhoneNumber, Address, City, image, cart) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    private static final String INSERT_USER_SQL = "INSERT INTO users (userId,FirstName, LastName, Email, Password, role, PhoneNumber, Address, City, image, cart) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     private static final String sqlDeleteUser = "DELETE FROM users WHERE Id = ?"; // Constant SQL query
     private static final String UPDATE_USER_SQL = "UPDATE users SET FirstName = ?, LastName = ?, Email = ?, Password = ?, PhoneNumber = ?, Address = ?, City = ?, image = ? WHERE userId = ?";
     private static final String SELECT_USER_SQL = "SELECT * FROM users WHERE userId = ?";
     private static final String SELECT_ALL_USER_SQL = "SELECT * FROM users";
+    private static final String CHECK_UNIQUE_USER_SQL = "SELECT userId FROM users WHERE email = ?";
 
     @Override
     public boolean add(User user) {
         try (var connectionDB = DatabaseConnection.getConnection();
              PreparedStatement preparedStatement = connectionDB.prepareStatement(INSERT_USER_SQL)) {
-            preparedStatement.setString(1, user.getFirstName());
-            preparedStatement.setString(2, user.getLastName());
-            preparedStatement.setString(3, user.getEmail());
-            preparedStatement.setString(4, user.getPassword());
-            preparedStatement.setString(5, String.valueOf(user.getRole()));
-            preparedStatement.setString(6, user.getPhoneNumber());
-            preparedStatement.setString(7, user.getAddress());
-            preparedStatement.setString(8, user.getCity());
-            preparedStatement.setString(9, user.getImage());
-            preparedStatement.setLong(10, user.getCart().getCartId());
+            preparedStatement.setString(1, user.getUserId());
+            preparedStatement.setString(2, user.getFirstName());
+            preparedStatement.setString(3, user.getLastName());
+            preparedStatement.setString(4, user.getEmail());
+            preparedStatement.setString(5, user.getPassword());
+            preparedStatement.setString(6, String.valueOf(user.getRole()));
+            preparedStatement.setString(7, user.getPhoneNumber());
+            preparedStatement.setString(8, user.getAddress());
+            preparedStatement.setString(9, user.getCity());
+            preparedStatement.setString(10, user.getImage());
+            preparedStatement.setLong(11, user.getCart().getCartId());
             return preparedStatement.executeUpdate() > 0;
         } catch (SQLException e) {
             throw new RuntimeException("Error adding user", e);
@@ -47,10 +49,10 @@ public class UserRepository implements InitialFunctions<User> {
     }
 
     @Override
-    public boolean delete(Long id) {
+    public boolean delete(String id) {
         try (var connectionDB = DatabaseConnection.getConnection();
              PreparedStatement preparedStatement = connectionDB.prepareStatement(sqlDeleteUser)) {
-            preparedStatement.setLong(1, id);
+            preparedStatement.setString(1, id);
             return preparedStatement.executeUpdate() > 0; // Execute the deletion
         } catch (SQLException e) {
             throw new RuntimeException("Error deleting user with id: " + id, e); // Improved error message
@@ -78,7 +80,7 @@ public class UserRepository implements InitialFunctions<User> {
             preparedStatement.setString(IDX_ADDRESS, user.getAddress());
             preparedStatement.setString(IDX_CITY, user.getCity());
             preparedStatement.setString(IDX_IMAGE, user.getImage());
-            preparedStatement.setLong(IDX_USER_ID, user.getUserId());
+            preparedStatement.setString(IDX_USER_ID, user.getUserId());
             return preparedStatement.executeUpdate() > 0; // Return true if at least one row is updated
         } catch (SQLException e) {
             throw new RuntimeException("Error updating user with ID: " + user.getUserId(), e);
@@ -86,10 +88,10 @@ public class UserRepository implements InitialFunctions<User> {
     }
 
     @Override
-    public Optional<User> findById(Long id) {
+    public Optional<User> findById(String id) {
         try (Connection connection = DatabaseConnection.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SELECT_USER_SQL)) {
-            preparedStatement.setLong(1, id);
+            preparedStatement.setString(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             CartRepository cart = new CartRepository();
             if (resultSet.next()) {
@@ -122,7 +124,7 @@ public class UserRepository implements InitialFunctions<User> {
 
     private User mapToUser(ResultSet resultSet) throws SQLException {
         User user = new User();
-        user.setUserId(resultSet.getLong("userId"));
+        user.setUserId(resultSet.getString("userId"));
         user.setFirstName(resultSet.getString("FirstName"));
         user.setLastName(resultSet.getString("LastName"));
         user.setEmail(resultSet.getString("Email"));
@@ -135,4 +137,18 @@ public class UserRepository implements InitialFunctions<User> {
         user.setCreatedAt(resultSet.getObject("createdat", LocalDateTime.class));
         return user;
     }
+
+    public boolean checkUniqueUser(String email) {
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(CHECK_UNIQUE_USER_SQL)) {
+
+            preparedStatement.setString(1, email);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                return resultSet.next();
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Erreur lors de la vérification de l'unicité de l'utilisateur", e);
+        }
+    }
+
 }

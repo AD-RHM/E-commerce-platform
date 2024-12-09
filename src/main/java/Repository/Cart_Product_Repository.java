@@ -21,9 +21,9 @@ public class Cart_Product_Repository implements InitialFunctions<OrederToCart>{
     public boolean add(OrederToCart orederToCart) {
         try(var connectionDB = DatabaseConnection.getConnection();
             PreparedStatement preparedStatement = connectionDB.prepareStatement(INSERT_CART_PRODUCT_SQL)) {
-            preparedStatement.setLong(1, orederToCart.getCartId());
-            preparedStatement.setLong(2, orederToCart.getProductId());
-            preparedStatement.setInt(3, orederToCart.getQuantity());
+            preparedStatement.setString(1, orederToCart.getCartId());
+            preparedStatement.setString(2, orederToCart.getProductId());
+            preparedStatement.setString(3, orederToCart.getQuantity());
             return preparedStatement.executeUpdate() > 0;
         } catch (SQLException e) {
             throw new RuntimeException("Error adding Order to cart", e);
@@ -31,10 +31,10 @@ public class Cart_Product_Repository implements InitialFunctions<OrederToCart>{
     }
 
     @Override
-    public boolean delete(Long id) throws SQLException {
+    public boolean delete(String id) throws SQLException {
         try(var connectionDB = DatabaseConnection.getConnection();
         PreparedStatement preparedStatement = connectionDB.prepareStatement(DELETE_CART_PRODUCT_SQL)) {
-            preparedStatement.setLong(1, id);
+            preparedStatement.setString(1, id);
             return preparedStatement.executeUpdate() > 0;
         } catch (SQLException e) {
             throw new RuntimeException("Error delete Order from cart", e);
@@ -46,9 +46,9 @@ public class Cart_Product_Repository implements InitialFunctions<OrederToCart>{
     public boolean edit(OrederToCart orederToCart) throws SQLException {
         try(var connectionDB = DatabaseConnection.getConnection();
         PreparedStatement preparedStatement = connectionDB.prepareStatement(UPDATE_CART_PRODUCT_SQL)) {
-            preparedStatement.setInt(1, orederToCart.getQuantity());
-            preparedStatement.setLong(2, orederToCart.getCartId());
-            preparedStatement.setLong(3, orederToCart.getProductId());
+            preparedStatement.setString(1, orederToCart.getQuantity());
+            preparedStatement.setString(2, orederToCart.getCartId());
+            preparedStatement.setString(3, orederToCart.getProductId());
             return preparedStatement.executeUpdate() > 0;
         }catch (SQLException e) {
             throw new RuntimeException("Error update Order to cart", e);
@@ -56,16 +56,16 @@ public class Cart_Product_Repository implements InitialFunctions<OrederToCart>{
     }
 
     @Override
-    public Optional<OrederToCart> findById(Long id) throws SQLException {
+    public Optional<OrederToCart> findById(String id) throws SQLException {
         try(var connectionDB = DatabaseConnection.getConnection();
         PreparedStatement preparedStatement = connectionDB.prepareStatement(SELECT_CART_PRODUCT_SQL)) {
-            preparedStatement.setLong(1, id);
+            preparedStatement.setString(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 OrederToCart orederToCart = new OrederToCart();
-                orederToCart.setCartId(resultSet.getLong("cart_id"));
-                orederToCart.setProductId(resultSet.getLong("product_id"));
-                orederToCart.setQuantity(resultSet.getInt("quantity"));
+                orederToCart.setCartId(resultSet.getString("cart_id"));
+                orederToCart.setProductId(resultSet.getString("product_id"));
+                orederToCart.setQuantity(resultSet.getString("quantity"));
                 return Optional.of(orederToCart);
             }
         }catch (SQLException e) {
@@ -82,9 +82,9 @@ public class Cart_Product_Repository implements InitialFunctions<OrederToCart>{
             List<OrederToCart> cartProducts = new ArrayList<>();
             while (resultSet.next()) {
                 OrederToCart orederToCart = new OrederToCart();
-                orederToCart.setCartId(resultSet.getLong("cart_id"));
-                orederToCart.setProductId(resultSet.getLong("product_id"));
-                orederToCart.setQuantity(resultSet.getInt("quantity"));
+                orederToCart.setCartId(resultSet.getString("cart_id"));
+                orederToCart.setProductId(resultSet.getString("product_id"));
+                orederToCart.setQuantity(resultSet.getString("quantity"));
                 cartProducts.add(orederToCart);
             }
         }catch (SQLException e) {

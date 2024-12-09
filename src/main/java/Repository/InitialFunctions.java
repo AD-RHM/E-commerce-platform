@@ -8,11 +8,11 @@ import java.util.Optional;
 public interface InitialFunctions<T> {
     boolean add(T t);
 
-    boolean delete(Long id) throws SQLException;
+    boolean delete(String id) throws SQLException;
 
     boolean edit(T t) throws SQLException;
 
-    Optional<T> findById(Long id) throws SQLException; // Changed to return Optional<T>
+    Optional<T> findById(String id) throws SQLException; // Changed to return Optional<T>
 
     List<T> findAll() throws SQLException; // Returning a list of T
 }

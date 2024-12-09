@@ -32,10 +32,10 @@ public class CartRepository implements InitialFunctions<Cart>{
 
 
     @Override
-    public boolean delete(Long id) {
+    public boolean delete(String id) {
         try (var connectionDB = DatabaseConnection.getConnection();
              PreparedStatement preparedStatement = connectionDB.prepareStatement(DELETE_CART_SQL)) {
-            preparedStatement.setLong(1, id);
+            preparedStatement.setString(1, id);
             return preparedStatement.executeUpdate() > 0;
         } catch (SQLException e) {
             throw new RuntimeException("Erreur lors de la suppression du panier avec l'ID: " + id, e);
@@ -59,15 +59,15 @@ public class CartRepository implements InitialFunctions<Cart>{
 
 
     @Override
-    public Optional<Cart> findById(Long id) throws SQLException {
+    public Optional<Cart> findById(String id) throws SQLException {
         try (var connectionDB = DatabaseConnection.getConnection();
              PreparedStatement preparedStatement = connectionDB.prepareStatement(SELECT_CART_SQL)) {
-            preparedStatement.setLong(1, id);
+            preparedStatement.setString(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 Cart cart = new Cart();
-                cart.setCartId(resultSet.getLong("cartId"));
-                cart.setCustomerId(resultSet.getLong("customerId"));
+                cart.setCartId(resultSet.getString("cartId"));
+                cart.setCustomerId(resultSet.getString("customerId"));
                 cart.setCartName(resultSet.getString("cartName"));
                 // Assume that the cart's products will be populated somewhere else.
                 return Optional.of(cart);
@@ -97,10 +97,10 @@ public class CartRepository implements InitialFunctions<Cart>{
         }
         }
 
-    public Optional<Cart> findByUserId(Long user_id) throws SQLException {
+    public Optional<Cart> findByUserId(String user_id) throws SQLException {
         try (var connectionDB = DatabaseConnection.getConnection();
              PreparedStatement preparedStatement = connectionDB.prepareStatement(SELECT_USER_CART_SQL)) {
-            preparedStatement.setLong(1, user_id);
+            preparedStatement.setString(1, user_id);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 Cart cart = new Cart();
