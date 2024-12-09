@@ -21,7 +21,7 @@ public class Cart {
 
     private String cartName;
 
-    @OneToMany
+    @ManyToMany
     @NonNull
     private List<Product> products = new ArrayList<>();
 
