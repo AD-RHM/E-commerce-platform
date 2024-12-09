@@ -2,5 +2,5 @@ package Model;
 
 
 public enum Role {
-    VENDOR,CUSTOMER
+    ADMIN,USER
 }
