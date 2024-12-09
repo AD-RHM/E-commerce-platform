@@ -11,7 +11,8 @@ CREATE TABLE `users` (
   `City` varchar(255) NOT NULL,
   `image` blob,
   `createdat` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`userId`)
+  `cart` bigint NOT NULL,
+  PRIMARY KEY (`userId`);
 
 CREATE TABLE `products` (
   `product_id` bigint NOT NULL AUTO_INCREMENT,
@@ -36,6 +37,7 @@ CREATE TABLE `cart` (
  CREATE TABLE `cart_products` (
   `cart_id` bigint NOT NULL,
   `product_id` bigint NOT NULL,
+  `quantity` int DEFAULT '1',
   PRIMARY KEY (`cart_id`,`product_id`),
   KEY `product_id` (`product_id`),
   CONSTRAINT `cart_products_ibfk_1` FOREIGN KEY (`cart_id`) REFERENCES `cart` (`cart_id`) ON DELETE CASCADE,
