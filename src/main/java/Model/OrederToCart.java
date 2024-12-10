@@ -3,8 +3,7 @@ package Model;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
-@Setter
+
 public class OrederToCart {
 
     private String quantity;
@@ -14,6 +13,30 @@ public class OrederToCart {
     public OrederToCart(String quantity, String productId, String cartId) {
         this.quantity = quantity;
         this.productId = productId;
+        this.cartId = cartId;
+    }
+
+    public String getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(String quantity) {
+        this.quantity = quantity;
+    }
+
+    public String getProductId() {
+        return productId;
+    }
+
+    public void setProductId(String productId) {
+        this.productId = productId;
+    }
+
+    public String getCartId() {
+        return cartId;
+    }
+
+    public void setCartId(String cartId) {
         this.cartId = cartId;
     }
 

@@ -22,7 +22,7 @@ public class CartRepository implements InitialFunctions<Cart>{
     public boolean add(Cart cart) {
         try (var connectionDB = DatabaseConnection.getConnection();
              PreparedStatement preparedStatement = connectionDB.prepareStatement(INSERT_CART_SQL)) {
-            preparedStatement.setLong(1, cart.getCustomerId());
+            preparedStatement.setString(1, cart.getCustomerId());
             preparedStatement.setString(2, cart.getCartName());
             return preparedStatement.executeUpdate() > 0;
         } catch (SQLException e) {
@@ -47,9 +47,9 @@ public class CartRepository implements InitialFunctions<Cart>{
     public boolean edit(Cart cart) throws SQLException {
         try (var connectionDB = DatabaseConnection.getConnection();
              PreparedStatement preparedStatement = connectionDB.prepareStatement(UPDATE_CART_SQL)) {
-            preparedStatement.setLong(1, cart.getCustomerId());
+            preparedStatement.setString(1, cart.getCustomerId());
             preparedStatement.setString(2, cart.getCartName());
-            preparedStatement.setLong(3, cart.getCartId());
+            preparedStatement.setString(3, cart.getCartId());
             return preparedStatement.executeUpdate() > 0;
         } catch (SQLException e) {
             throw new RuntimeException("Erreur lors de la mise à jour du panier avec l'ID: " + cart.getCartId(), e);
@@ -86,8 +86,8 @@ public class CartRepository implements InitialFunctions<Cart>{
             List<Cart> carts = new ArrayList<>();
             while (resultSet.next()) {
                 Cart cart = new Cart();
-                cart.setCartId(resultSet.getLong("cartId"));
-                cart.setCustomerId(resultSet.getLong("customerId"));
+                cart.setCartId(resultSet.getString("cartId"));
+                cart.setCustomerId(resultSet.getString("customerId"));
                 cart.setCartName(resultSet.getString("cartName"));
                 carts.add(cart);
             }
@@ -104,8 +104,8 @@ public class CartRepository implements InitialFunctions<Cart>{
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 Cart cart = new Cart();
-                cart.setCartId(resultSet.getLong("cart_id"));
-                cart.setCustomerId(resultSet.getLong("customer_id"));
+                cart.setCartId(resultSet.getString("cart_id"));
+                cart.setCustomerId(resultSet.getString("customer_id"));
                 cart.setCartName(resultSet.getString("cart_name"));
                 // Assume that the cart's products will be populated somewhere else.
                 return Optional.of(cart);

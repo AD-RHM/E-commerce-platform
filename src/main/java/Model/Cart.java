@@ -1,17 +1,16 @@
 package Model;
 
 import jakarta.persistence.*;
-import lombok.Getter;
 import lombok.NonNull;
-import lombok.Setter;
+
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+
+
 @Entity
-@Getter
-@Setter
 public class Cart {
 
     @Id
@@ -22,10 +21,43 @@ public class Cart {
     private String cartName;
 
     @ManyToMany
-    @NonNull
-    private List<Product> products = new ArrayList<>();
+    private List<Product> products;
+
 
     public Cart() {
         // Constructor can remain empty if no additional logic is needed
+        products = new ArrayList<>();
+    }
+
+    public String getCartId() {
+        return cartId;
+    }
+
+    public void setCartId(String cartId) {
+        this.cartId = cartId;
+    }
+
+    public String getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(String customerId) {
+        this.customerId = customerId;
+    }
+
+    public String getCartName() {
+        return cartName;
+    }
+
+    public void setCartName(String cartName) {
+        this.cartName = cartName;
+    }
+
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
     }
 }

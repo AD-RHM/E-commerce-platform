@@ -1,33 +1,4 @@
-/*-------------------------------------------------------------------------------------- 
-	Theme Name: Chamb - Responsive E-commerce HTML5 Template 
----------------------------------------------------------------------------------------- 
-    
-	1. IMPORT FILES
-	2. BASE CSS 
-	3. HEADER
-	   - Logo
-	   - Search Bar
-	4. PAGE CONTENT PRODUCT 
-	5. SECTION
-	   - Products Exciting
-	   - Start Free
-	6. PRODUCT
-	7. FOOTER
-	   - Copyright
-	8. INNER PAGE   
-	   - How it Works
-	   - About Us
-	   - Terms Page
-	   - Cooming Soon
-	   - Category
-	   - Profile
-	   - Pricing
-	   - Product Page
-	   - New Layout css
-	
---------------------------------------------------------------------------------------*/
-
-/*------------------------------------------------------------- 
+/*-------------------------------------------------------------
 	1. IMPORT FILES
 -------------------------------------------------------------*/
 
@@ -38,8 +9,8 @@
 /**-- font-family: 'Raleway', sans-serif; --**/
 
 
-/*------------------------------------------------------------- 
-	2. BASE CSS 
+/*-------------------------------------------------------------
+	2. BASE CSS
 -------------------------------------------------------------*/
 
 body {
@@ -99,8 +70,8 @@ textarea {
 }
 
 
-/*------------------------------------------------------------- 
-	2. HEADER 
+/*-------------------------------------------------------------
+	2. HEADER
 -------------------------------------------------------------*/
 
 header .navbar {
@@ -175,7 +146,7 @@ header .navbar-default .navbar-header {
 
 .web-sh.navbar-form input::-moz-placeholder {
 	/* Firefox 19+ */
-	color #474747;
+	color: #474747;
 	opacity: 1;
 }
 
@@ -276,7 +247,7 @@ header .navbar-default .navbar-header {
 
 .top-nav ul li a {
 	color: #fff;
-	font-family: ;
+	font-family: "FontAwesome";
 	font-size: 14px;
 	font-weight: 400;
 }
@@ -337,7 +308,7 @@ header .navbar-default .navbar-header {
 	color: #fff;
 	padding: 10px 23px;
 	cursor: pointer;
-	
+
 }
 
 .login-signup ul li a.custom-b:hover {
@@ -447,7 +418,7 @@ header .navbar-default .navbar-header {
 	background-position: center center;
 	background-color: rgba(0, 0, 0, 0.5);
 	background-blend-mode: overlay;
-	
+
 }
 
 .find-box {
@@ -1489,7 +1460,11 @@ header .navbar-default .navbar-header {
 
 .section-safety {
 	background-color: #09284b;
-	background-image: -webkit-gradient(linear, left top, left bottom, from(#111318), to(#1f2126));
+	/* Define color variables for better readability and maintainability */
+	--color-top: #111318;
+	--color-bottom: #1f2126;
+
+	background-image: linear-gradient(to bottom, var(--color-top), var(--color-bottom));;
 	background-image: linear-gradient(180deg, #111318 0, #1f2126 100%);
 	padding: 55px 0 70px;
 }
@@ -2680,9 +2655,12 @@ html .ui-button.ui-state-disabled:active {
 	content: "";
 	position: absolute;
 	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,000000+100&0+0,1+100 */
-	background: -moz-linear-gradient(top, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 1) 100%);
-	/* FF3.6-15 */
-	background: -webkit-linear-gradient(top, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 1) 100%);
+
+	:root {
+		--background-gradient: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 1) 100%);
+	}
+
+	background: var(--background-gradient);
 	/* Chrome10-25,Safari5.1-6 */
 	background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 1) 100%);
 	/* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
@@ -2929,9 +2907,14 @@ html .ui-button.ui-state-disabled:active {
 
 .section-pricing {
 	background: #07203e;
-	background: -moz-linear-gradient(top, #07203e 0, #07223f 8%, #092344 14%, #072442 16%, #0a2445 16%, #082545 23%, #092648 23%, #092847 28%, #0a264b 33%, #0a2749 34%, #0b294b 34%, #0b294b 100%);
-	background: -webkit-linear-gradient(top, #07203e 0, #07223f 8%, #092344 14%, #072442 16%, #0a2445 16%, #082545 23%, #092648 23%, #092847 28%, #0a264b 33%, #0a2749 34%, #0b294b 34%, #0b294b 100%);
-	background: linear-gradient(to bottom, #07203e 0, #07223f 8%, #092344 14%, #072442 16%, #0a2445 16%, #082545 23%, #092648 23%, #092847 28%, #0a264b 33%, #0a2749 34%, #0b294b 34%, #0b294b 100%);
+
+	:root {
+		--main-gradient: linear-gradient(to bottom, #07203e 0, #07223f 8%, #092344 14%, #072442 16%, #0a2445 16%, #082545 23%, #092648 23%, #092847 28%, #0a264b 33%, #0a2749 34%, #0b294b 34%, #0b294b 100%);
+	}
+
+	background: -moz-linear-gradient(to bottom, var(--main-gradient));
+	background: -webkit-linear-gradient(to bottom, var(--main-gradient));
+	background: var(--main-gradient);background: linear-gradient(to bottom, #07203e 0, #07223f 8%, #092344 14%, #072442 16%, #0a2445 16%, #082545 23%, #092648 23%, #092847 28%, #0a264b 33%, #0a2749 34%, #0b294b 34%, #0b294b 100%);
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#07203e', endColorstr='#0b294b', GradientType=0);
 	padding-top: 95px;
 }
@@ -3334,10 +3317,6 @@ html .ui-button.ui-state-disabled:active {
 .price-box-right a {
 	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#00cb96+0,00be8e+100 */
 	background: #00cb96;
-	/* Old browsers */
-	background: -moz-linear-gradient(top, #00cb96 0%, #00be8e 100%);
-	/* FF3.6-15 */
-	background: -webkit-linear-gradient(top, #00cb96 0%, #00be8e 100%);
 	/* Chrome10-25,Safari5.1-6 */
 	background: linear-gradient(to bottom, #00cb96 0%, #00be8e 100%);
 	/* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
