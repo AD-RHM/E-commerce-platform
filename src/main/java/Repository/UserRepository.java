@@ -2,6 +2,7 @@ package Repository;
 
 import Model.Role;
 import Model.User;
+import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,7 +13,8 @@ import java.util.ArrayList;
 import java.util.Optional;
 import java.util.List;
 
-public class UserRepository implements InitialFunctions<User> {
+
+public class UserRepository implements InitialFunctions<User>{
 
     private final CartRepository cartRepository;
     public UserRepository() {

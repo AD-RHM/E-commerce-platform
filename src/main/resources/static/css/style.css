@@ -403,7 +403,7 @@ header .navbar-default .navbar-header {
 	color: #1e96ff;
 }
 
-/*------------------------------------------------------------- 
+/*-------------------------------------------------------------
 	4. PAGE CONTENT PRODUCT
 -------------------------------------------------------------*/
 
@@ -411,7 +411,7 @@ header .navbar-default .navbar-header {
 
 .main-product {
 	background-color: #09284b;
-	background-image: url('../images/background.jpg');
+	background-image: url("../images/background.jpg");
 	background-size: cover;
 	background-repeat: no-repeat;
 	padding-bottom: 180px;
@@ -583,11 +583,12 @@ header .navbar-default .navbar-header {
 	background: #051d36;
 	text-align: center;
 	padding-bottom: 30px;
-	min-height: 280px;
+	min-height: 360px;
 	margin-bottom: 30px;
 	position: relative;
-	border-bottom: solid #007dea 3px;
+	border-bottom: solid #ea3e00 3px;
 	transition: ease all 0.5s;
+	-webkit-transition: ease all 0.5s;
 }
 
 .box-img h4 {
@@ -627,7 +628,7 @@ header .navbar-default .navbar-header {
 	color: #1d99ff;
 }
 
-/*------------------------------------------------------------- 
+/*-------------------------------------------------------------
 	5. SECTION
 -------------------------------------------------------------*/
 
@@ -890,7 +891,7 @@ header .navbar-default .navbar-header {
 
 .right-supplier img {}
 
-/*------------------------------------------------------------- 
+/*-------------------------------------------------------------
 	6. PRODUCT
 -------------------------------------------------------------*/
 
@@ -1018,7 +1019,7 @@ header .navbar-default .navbar-header {
 	display: none;
 }
 
-/*------------------------------------------------------------- 
+/*-------------------------------------------------------------
 	7. FOOTER
 -------------------------------------------------------------*/
 
@@ -1231,8 +1232,8 @@ header .navbar-default .navbar-header {
 }
 
 
-/*------------------------------------------------------------- 
-	8. INNER PAGE 
+/*-------------------------------------------------------------
+	8. INNER PAGE
 -------------------------------------------------------------*/
 
 /*-- How it Works --*/

@@ -1,10 +1,13 @@
 package Repository;
 
+import org.springframework.stereotype.Repository;
+
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
 // Corrected interface name
+@Repository
 public interface InitialFunctions<T> {
     boolean add(T t);
 
