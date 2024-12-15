@@ -44,10 +44,10 @@ public class ProductRepository implements InitialFunctions<Product> {
 
 
     @Override
-    public boolean delete(String id) throws SQLException {
+    public boolean delete(Long id) {
         try (Connection connection = DatabaseConnection.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(DELETE_PRODUCT_SQL)) {
-            preparedStatement.setString(1, id);
+            preparedStatement.setLong(1, id);
             return preparedStatement.executeUpdate() > 0;
         } catch (SQLException e) {
             throw new RuntimeException("Error deleting product with id: " + id, e);
@@ -55,7 +55,7 @@ public class ProductRepository implements InitialFunctions<Product> {
     }
 
     @Override
-    public boolean edit(Product product) throws SQLException {
+    public boolean edit(Product product) {
         final int IDX_LABEL = 1;
         final int IDX_DESCRIPTION = 2;
         final int IDX_IMAGE = 3;
@@ -75,7 +75,7 @@ public class ProductRepository implements InitialFunctions<Product> {
             preparedStatement.setInt(IDX_INITIAL_QUANTITY, product.getInitial_quantity());
             preparedStatement.setInt(IDX_QUANTITY_LEFT, product.getQuantity_left());
             preparedStatement.setObject(IDX_RELEASED_DATE, product.getReleasedDate());
-            preparedStatement.setString(IDX_PRODUCT_ID, product.getProduct_id());
+            preparedStatement.setLong(IDX_PRODUCT_ID, product.getProduct_id());
             return preparedStatement.executeUpdate() > 0;
         } catch (SQLException e) {
             throw new RuntimeException("Error updating product: " + product.getLabel(), e);
@@ -83,14 +83,14 @@ public class ProductRepository implements InitialFunctions<Product> {
     }
 
     @Override
-    public Optional<Product> findById(String id) {
+    public Optional<Product> findById(Long id) {
         try (Connection connection = DatabaseConnection.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SELECT_PRODUCT_BY_ID_SQL)) {
-            preparedStatement.setString(1, id);
+            preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 Product product = new Product();
-                product.setProduct_id(resultSet.getString("product_id"));
+                product.setProduct_id(resultSet.getLong("product_id"));
                 product.setLabel(resultSet.getString("label"));
                 product.setDescription(resultSet.getString("description"));
                 product.setImage(resultSet.getString("image"));
@@ -115,7 +115,7 @@ public class ProductRepository implements InitialFunctions<Product> {
             List<Product> products = new ArrayList<>();
             while (resultSet.next()) {
                 Product product = new Product();
-                product.setProduct_id(resultSet.getString("product_id"));
+                product.setProduct_id(resultSet.getLong("product_id"));
                 product.setLabel(resultSet.getString("label"));
                 product.setDescription(resultSet.getString("description"));
                 product.setImage(resultSet.getString("image"));

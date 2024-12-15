@@ -1,88 +1,88 @@
 package Model;
 
 import jakarta.persistence.*;
-import lombok.NonNull;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 @Entity
+@Table(name = "users")
 public class User {
 
     @Id
-    private String userId = UUID.randomUUID().toString();
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long userId;
 
-    @NonNull
+    @Column(name = "FirstName" , nullable = false)
     private String firstName;
 
-    @NonNull
+    @Column(name = "LastName")
     private String lastName;
 
-    @NonNull
+    @Column(name = "Email")
     private String email;
 
-    @NonNull
+    @Column(name = "password")
     private String password;
 
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @NonNull
+    @Column(name = "PhoneNumber")
     private String phoneNumber;
 
-    @NonNull
+    @Column(name = "Address")
     private String address;
 
-    @NonNull
+    @Column(name = "City")
     private String city;
 
-    @NonNull
+    @Column(name = "image")
     private String image;
 
-    @NonNull
+    @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime createdAt;
 
     @OneToOne
     @JoinColumn(name = "cart_id")
     private Cart cart;
 
-    public String getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
-    public @NonNull String getFirstName() {
+    public String getFirstName() {
         return firstName;
     }
 
-    public void setFirstName(@NonNull String firstName) {
+    public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
-    public @NonNull String getLastName() {
+    public String getLastName() {
         return lastName;
     }
 
-    public void setLastName(@NonNull String lastName) {
+    public void setLastName(String lastName) {
         this.lastName = lastName;
     }
 
-    public @NonNull String getEmail() {
+    public String getEmail() {
         return email;
     }
 
-    public void setEmail(@NonNull String email) {
+    public void setEmail(String email) {
         this.email = email;
     }
 
-    public @NonNull String getPassword() {
+    public String getPassword() {
         return password;
     }
 
-    public void setPassword(@NonNull String password) {
+    public void setPassword(String password) {
         this.password = password;
     }
 
@@ -94,43 +94,43 @@ public class User {
         this.role = role;
     }
 
-    public @NonNull String getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(@NonNull String phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
-    public @NonNull String getAddress() {
+    public String getAddress() {
         return address;
     }
 
-    public void setAddress(@NonNull String address) {
+    public void setAddress(String address) {
         this.address = address;
     }
 
-    public @NonNull String getCity() {
+    public String getCity() {
         return city;
     }
 
-    public void setCity(@NonNull String city) {
+    public void setCity(String city) {
         this.city = city;
     }
 
-    public @NonNull String getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(@NonNull String image) {
+    public void setImage(String image) {
         this.image = image;
     }
 
-    public @NonNull LocalDateTime getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(@NonNull LocalDateTime createdAt) {
+    public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
 
@@ -140,9 +140,5 @@ public class User {
 
     public void setCart(Cart cart) {
         this.cart = cart;
-    }
-
-    // Lets the cart be optionally injected
-    public User() {
     }
 }

@@ -11,68 +11,73 @@ import java.util.UUID;
 public class Product {
 
     @Id
-    private String product_id = UUID.randomUUID().toString();
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long product_id;
 
-    @NonNull
+    @Column(name = "label")
     private String label;
 
-    @NonNull
+    @Column(name = "description")
     private String description;
 
-    @NonNull
+    @Column(name = "image")
     private String image;
 
-    @NonNull
+    @Column(name = "category")
     @Enumerated(EnumType.STRING)
     private Category category;
 
+    @Column(name = "price")
     private double price;
 
+    @Column(name = "initial_Quantity")
     private int initial_quantity;
 
+    @Column(name = "quantity_left")
     private int quantity_left;
 
+    @Column(name = "releasedDate")
+    @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime releasedDate;
 
-    private Long userId;
 
-    public String getProduct_id() {
+    public Long getProduct_id() {
         return product_id;
     }
 
-    public void setProduct_id(String product_id) {
+    public void setProduct_id(Long product_id) {
         this.product_id = product_id;
     }
 
-    public @NonNull String getLabel() {
+    public String getLabel() {
         return label;
     }
 
-    public void setLabel(@NonNull String label) {
+    public void setLabel(String label) {
         this.label = label;
     }
 
-    public @NonNull String getDescription() {
+    public String getDescription() {
         return description;
     }
 
-    public void setDescription(@NonNull String description) {
+    public void setDescription(String description) {
         this.description = description;
     }
 
-    public @NonNull String getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(@NonNull String image) {
+    public void setImage(String image) {
         this.image = image;
     }
 
-    public @NonNull Category getCategory() {
+    public Category getCategory() {
         return category;
     }
 
-    public void setCategory(@NonNull Category category) {
+    public void setCategory(Category category) {
         this.category = category;
     }
 
@@ -108,16 +113,6 @@ public class Product {
         this.releasedDate = releasedDate;
     }
 
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
     public Product() {
-        this.quantity_left = this.initial_quantity;
     }
-
 }

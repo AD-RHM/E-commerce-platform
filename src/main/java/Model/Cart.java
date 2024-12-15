@@ -14,10 +14,12 @@ import java.util.UUID;
 public class Cart {
 
     @Id
-    private String cartId = UUID.randomUUID().toString();
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "cart_id")
+    private Long cartId;
 
-    private String customerId;
 
+    @Column(name = "cart_name")
     private String cartName;
 
     @ManyToMany
@@ -29,20 +31,12 @@ public class Cart {
         products = new ArrayList<>();
     }
 
-    public String getCartId() {
+    public Long getCartId() {
         return cartId;
     }
 
-    public void setCartId(String cartId) {
+    public void setCartId(Long cartId) {
         this.cartId = cartId;
-    }
-
-    public String getCustomerId() {
-        return customerId;
-    }
-
-    public void setCustomerId(String customerId) {
-        this.customerId = customerId;
     }
 
     public String getCartName() {

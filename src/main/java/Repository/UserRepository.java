@@ -34,7 +34,7 @@ public class UserRepository implements InitialFunctions<User>{
     public boolean add(User user) {
         try (var connectionDB = DatabaseConnection.getConnection();
              PreparedStatement preparedStatement = connectionDB.prepareStatement(INSERT_USER_SQL)) {
-            preparedStatement.setString(1, user.getUserId());
+            preparedStatement.setLong(1, user.getUserId());
             preparedStatement.setString(2, user.getFirstName());
             preparedStatement.setString(3, user.getLastName());
             preparedStatement.setString(4, user.getEmail());
@@ -44,7 +44,7 @@ public class UserRepository implements InitialFunctions<User>{
             preparedStatement.setString(8, user.getAddress());
             preparedStatement.setString(9, user.getCity());
             preparedStatement.setString(10, user.getImage());
-            preparedStatement.setString(11, user.getCart().getCartId());
+            preparedStatement.setLong(11, user.getCart().getCartId());
             return preparedStatement.executeUpdate() > 0;
         } catch (SQLException e) {
             throw new RuntimeException("Error adding user", e);
@@ -52,10 +52,10 @@ public class UserRepository implements InitialFunctions<User>{
     }
 
     @Override
-    public boolean delete(String id) {
+    public boolean delete(Long id) {
         try (var connectionDB = DatabaseConnection.getConnection();
              PreparedStatement preparedStatement = connectionDB.prepareStatement(sqlDeleteUser)) {
-            preparedStatement.setString(1, id);
+            preparedStatement.setLong(1, id);
             return preparedStatement.executeUpdate() > 0; // Execute the deletion
         } catch (SQLException e) {
             throw new RuntimeException("Error deleting user with id: " + id, e); // Improved error message
@@ -83,7 +83,7 @@ public class UserRepository implements InitialFunctions<User>{
             preparedStatement.setString(IDX_ADDRESS, user.getAddress());
             preparedStatement.setString(IDX_CITY, user.getCity());
             preparedStatement.setString(IDX_IMAGE, user.getImage());
-            preparedStatement.setString(IDX_USER_ID, user.getUserId());
+            preparedStatement.setLong(IDX_USER_ID, user.getUserId());
             return preparedStatement.executeUpdate() > 0; // Return true if at least one row is updated
         } catch (SQLException e) {
             throw new RuntimeException("Error updating user with ID: " + user.getUserId(), e);
@@ -91,10 +91,10 @@ public class UserRepository implements InitialFunctions<User>{
     }
 
     @Override
-    public Optional<User> findById(String id) {
+    public Optional<User> findById(Long id) {
         try (Connection connection = DatabaseConnection.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SELECT_USER_SQL)) {
-            preparedStatement.setString(1, id);
+            preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             CartRepository cart = new CartRepository();
             if (resultSet.next()) {
@@ -127,7 +127,7 @@ public class UserRepository implements InitialFunctions<User>{
 
     private User mapToUser(ResultSet resultSet) throws SQLException {
         User user = new User();
-        user.setUserId(resultSet.getString("userId"));
+        user.setUserId(resultSet.getLong("userId"));
         user.setFirstName(resultSet.getString("FirstName"));
         user.setLastName(resultSet.getString("LastName"));
         user.setEmail(resultSet.getString("Email"));

@@ -23,7 +23,6 @@ public class UserServices {
         if (!userRepository.checkUniqueUser(user.getEmail())){
             Cart cart = new Cart();
             cart.setCartName(user.getFirstName() + " " + user.getLastName());
-            cart.setCustomerId(user.getUserId());
             cartRepository.add(cart);
             user.setCart(cart);
             userRepository.add(user);

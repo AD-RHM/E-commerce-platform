@@ -11,7 +11,7 @@ import java.util.Optional;
 
 public class CartRepository implements InitialFunctions<Cart>{
 
-    private static final String INSERT_CART_SQL = "INSERT INTO carts (customerId, cartName) VALUES (?, ?)";
+    private static final String INSERT_CART_SQL = "INSERT INTO carts (cartId, cartName) VALUES (?, ?)";
     private static final String DELETE_CART_SQL = "DELETE FROM carts WHERE cartId = ?";
     private static final String UPDATE_CART_SQL = "UPDATE carts SET customerId = ?, cartName = ? WHERE cartId = ?";
     private static final String SELECT_CART_SQL = "SELECT * FROM carts WHERE cartId = ?";
@@ -22,7 +22,7 @@ public class CartRepository implements InitialFunctions<Cart>{
     public boolean add(Cart cart) {
         try (var connectionDB = DatabaseConnection.getConnection();
              PreparedStatement preparedStatement = connectionDB.prepareStatement(INSERT_CART_SQL)) {
-            preparedStatement.setString(1, cart.getCustomerId());
+            preparedStatement.setLong(1, cart.getCartId());
             preparedStatement.setString(2, cart.getCartName());
             return preparedStatement.executeUpdate() > 0;
         } catch (SQLException e) {
@@ -32,10 +32,10 @@ public class CartRepository implements InitialFunctions<Cart>{
 
 
     @Override
-    public boolean delete(String id) {
+    public boolean delete(Long id) {
         try (var connectionDB = DatabaseConnection.getConnection();
              PreparedStatement preparedStatement = connectionDB.prepareStatement(DELETE_CART_SQL)) {
-            preparedStatement.setString(1, id);
+            preparedStatement.setLong(1, id);
             return preparedStatement.executeUpdate() > 0;
         } catch (SQLException e) {
             throw new RuntimeException("Erreur lors de la suppression du panier avec l'ID: " + id, e);
@@ -44,12 +44,11 @@ public class CartRepository implements InitialFunctions<Cart>{
 
 
     @Override
-    public boolean edit(Cart cart) throws SQLException {
+    public boolean edit(Cart cart) {
         try (var connectionDB = DatabaseConnection.getConnection();
              PreparedStatement preparedStatement = connectionDB.prepareStatement(UPDATE_CART_SQL)) {
-            preparedStatement.setString(1, cart.getCustomerId());
-            preparedStatement.setString(2, cart.getCartName());
-            preparedStatement.setString(3, cart.getCartId());
+            preparedStatement.setString(1, cart.getCartName());
+            preparedStatement.setLong(2, cart.getCartId());
             return preparedStatement.executeUpdate() > 0;
         } catch (SQLException e) {
             throw new RuntimeException("Erreur lors de la mise à jour du panier avec l'ID: " + cart.getCartId(), e);
@@ -59,15 +58,14 @@ public class CartRepository implements InitialFunctions<Cart>{
 
 
     @Override
-    public Optional<Cart> findById(String id) throws SQLException {
+    public Optional<Cart> findById(Long id) {
         try (var connectionDB = DatabaseConnection.getConnection();
              PreparedStatement preparedStatement = connectionDB.prepareStatement(SELECT_CART_SQL)) {
-            preparedStatement.setString(1, id);
+            preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 Cart cart = new Cart();
-                cart.setCartId(resultSet.getString("cartId"));
-                cart.setCustomerId(resultSet.getString("customerId"));
+                cart.setCartId(resultSet.getLong("cartId"));
                 cart.setCartName(resultSet.getString("cartName"));
                 // Assume that the cart's products will be populated somewhere else.
                 return Optional.of(cart);
@@ -79,15 +77,14 @@ public class CartRepository implements InitialFunctions<Cart>{
     }
 
     @Override
-    public List<Cart> findAll() throws SQLException {
+    public List<Cart> findAll() {
         try( var connectionDB = DatabaseConnection.getConnection();
         PreparedStatement preparedStatement = connectionDB.prepareStatement(SELECT_ALL_CART_SQL)){
             ResultSet resultSet = preparedStatement.executeQuery();
             List<Cart> carts = new ArrayList<>();
             while (resultSet.next()) {
                 Cart cart = new Cart();
-                cart.setCartId(resultSet.getString("cartId"));
-                cart.setCustomerId(resultSet.getString("customerId"));
+                cart.setCartId(resultSet.getLong("cartId"));
                 cart.setCartName(resultSet.getString("cartName"));
                 carts.add(cart);
             }
@@ -97,15 +94,14 @@ public class CartRepository implements InitialFunctions<Cart>{
         }
         }
 
-    public Optional<Cart> findByUserId(String user_id) throws SQLException {
+    public Optional<Cart> findByUserId(Long user_id) {
         try (var connectionDB = DatabaseConnection.getConnection();
              PreparedStatement preparedStatement = connectionDB.prepareStatement(SELECT_USER_CART_SQL)) {
-            preparedStatement.setString(1, user_id);
+            preparedStatement.setLong(1, user_id);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 Cart cart = new Cart();
-                cart.setCartId(resultSet.getString("cart_id"));
-                cart.setCustomerId(resultSet.getString("customer_id"));
+                cart.setCartId(resultSet.getLong("cart_id"));
                 cart.setCartName(resultSet.getString("cart_name"));
                 // Assume that the cart's products will be populated somewhere else.
                 return Optional.of(cart);

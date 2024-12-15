@@ -1,5 +1,6 @@
 package Repository;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.sql.SQLException;
@@ -8,14 +9,14 @@ import java.util.Optional;
 
 // Corrected interface name
 @Repository
-public interface InitialFunctions<T> {
+public interface InitialFunctions<T>{
     boolean add(T t);
 
-    boolean delete(String id) throws SQLException;
+    boolean delete(Long id);
 
-    boolean edit(T t) throws SQLException;
+    boolean edit(T t);
 
-    Optional<T> findById(String id) throws SQLException; // Changed to return Optional<T>
+    Optional<T> findById(Long id); // Changed to return Optional<T>
 
-    List<T> findAll() throws SQLException; // Returning a list of T
+    List<T> findAll(); // Returning a list of T
 }
