@@ -22,7 +22,14 @@ public class Cart {
     @Column(name = "cart_name")
     private String cartName;
 
-    @ManyToMany
+    @OneToOne
+    private User user;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "cart_products",
+            joinColumns = @JoinColumn(name = "product_id"),
+            inverseJoinColumns = @JoinColumn(name = "cart_id"))
+
     private List<Product> products;
 
 
@@ -53,5 +60,13 @@ public class Cart {
 
     public void setProducts(List<Product> products) {
         this.products = products;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

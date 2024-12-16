@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.NonNull;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 
@@ -39,6 +40,9 @@ public class Product {
     @Column(name = "releasedDate")
     @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime releasedDate;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    private List<Cart> carts;
 
 
     public Long getProduct_id() {
@@ -113,6 +117,9 @@ public class Product {
         this.releasedDate = releasedDate;
     }
 
-    public Product() {
-    }
+    public Product() {}
+
+    public List<Cart> getCarts() {return carts;}
+
+    public void setCarts(List<Cart> carts) {this.carts = carts;}
 }
