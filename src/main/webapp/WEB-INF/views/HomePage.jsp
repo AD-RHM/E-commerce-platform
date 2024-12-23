@@ -45,38 +45,8 @@
                         <div class="login-sr">
                             <div class="login-signup">
                                 <ul>
-                                    <li><a class="btn-login" id="loginBtn" >Login</a></li>
-                                    <li><a class="custom-b" id="signupBtn">Sign up</a></li>
+                                    <li><a class="custom-b" id="logoutbtn">Logout</a></li>
                                 </ul>
-                                <!-- Login Popup -->
-                                <div id="loginPopup" class="popup">
-                                    <div class="popup-content">
-                                        <span class="close-btn" id="closeLoginPopup">&times;</span>
-                                        <h2>Login</h2>
-                                        <form id="loginForm">
-                                            <input type="email" placeholder="Email" required>
-                                            <input type="password" placeholder="Password" required>
-                                            <button type="submit">Login</button>
-                                            <div class="signup-link">
-                                                Don't have an account? <a id="switchToSignup">Sign up</a>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                                <!-- Signup Popup -->
-                                <div id="signupPopup" class="popup">
-                                    <div class="popup-content">
-                                        <span class="close-btn" id="closeSignupPopup">&times;</span>
-                                        <h2>Sign Up</h2>
-                                        <form id="signupForm">
-                                            <input type="text" placeholder="Full Name" required>
-                                            <input type="email" placeholder="Email" required>
-                                            <input type="password" placeholder="Password" required>
-                                            <input type="password" placeholder="Confirm Password" required>
-                                            <button type="submit">Sign Up</button>
-                                        </form>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                         <div class="help-r hidden-xs">
