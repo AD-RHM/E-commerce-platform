@@ -53,9 +53,9 @@
                                     <div class="popup-content">
                                         <span class="close-btn" id="closeLoginPopup">&times;</span>
                                         <h2>Login</h2>
-                                        <form id="loginForm">
-                                            <input type="email" placeholder="Email" required>
-                                            <input type="password" placeholder="Password" required>
+                                        <form id="loginForm" action="perform_login" method="post">
+                                            <input type="email" name="email" placeholder="Email" required>
+                                            <input type="password" name="password" placeholder="Password" required>
                                             <button type="submit">Login</button>
                                             <div class="signup-link">
                                                 Don't have an account? <a id="switchToSignup">Sign up</a>
@@ -68,7 +68,7 @@
                                     <div class="popup-content">
                                         <span class="close-btn" id="closeSignupPopup">&times;</span>
                                         <h2>Sign Up</h2>
-                                        <form id="signupForm">
+                                        <form id="signupForm" action="Signup" method="post">
                                             <input type="text" placeholder="Full Name" required>
                                             <input type="email" placeholder="Email" required>
                                             <input type="password" placeholder="Password" required>

@@ -45,7 +45,7 @@
                         <div class="login-sr">
                             <div class="login-signup">
                                 <ul>
-                                    <li><a class="custom-b" id="logoutbtn">Logout</a></li>
+                                    <li><a href="${pageContext.request.contextPath}/perform_logout" class="custom-b" id="logoutbtn">Logout</a></li>
                                 </ul>
                             </div>
                         </div>
