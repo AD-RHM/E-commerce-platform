@@ -1,3 +1,4 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -8,23 +9,21 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="/css/Login.css">
-
 </head>
 <body>
 
 <div class="login-container">
     <h2>Connexion</h2>
-    <form>
+    <form name="loginForm" action="performLogin" method="post">
         <!-- Champ Email -->
         <div class="mb-3">
-            <label for="email" class="form-label">Adresse Email</label>
-            <input type="email" class="form-control" id="email" placeholder="Entrez votre email" required>
+            <input type="email" class="form-control" id="email" name="username" placeholder="Entrez votre email" required>
         </div>
 
         <!-- Champ Mot de Passe -->
         <div class="mb-3">
-            <label for="password" class="form-label">Mot de Passe</label>
-            <input type="password" class="form-control" id="password" placeholder="Entrez votre mot de passe" required>
+
+            <input type="password" class="form-control" id="password" name="password" placeholder="Entrez votre mot de passe" required>
         </div>
 
         <!-- Bouton de Connexion -->

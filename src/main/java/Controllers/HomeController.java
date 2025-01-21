@@ -2,20 +2,27 @@ package Controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class HomeController {
 
-    @GetMapping("/index") // Changed path to root for better convention
+    //@RequestMapping(method = RequestMethod.GET,path = "/index")
+    @GetMapping("/") // Changed path to root for better convention
     public String home(){
         return "index";
     }
-    @GetMapping("/home")
+    @GetMapping("/homepage")
     public String homePage(){
         return "HomePage";
     }
-    @GetMapping("/Login")
+    @GetMapping("/LoginPage")
     public String login(){
-        return "/Login";
+        return "LoginPage";
+    }
+    @GetMapping("/SignIn")
+    public String signIn(){
+        return "SignIn";
     }
 }

@@ -1,5 +1,10 @@
 package Configuration;
 
+import Security.DefaultAuthenticationFailureHandler;
+import Security.DefaultLogoutSuccessHandler;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -11,6 +16,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -49,35 +56,29 @@ public class SecurityConfig {
                         authorizeRequests.requestMatchers("/home").hasAnyRole("ADMIN", "USER")
                         .requestMatchers("/index").permitAll()
                         .anyRequest().authenticated())
-                .formLogin(formLogin -> );
+                .formLogin(formLogin -> formLogin
+                        .passwordParameter("password")
+                        .usernameParameter("username")
+                        .loginPage("/LoginPage")
+                        .loginProcessingUrl("/performLogin")
+                        .defaultSuccessUrl("/HomePage", false)
+                        .failureUrl("/LoginPage?error=true")
+                        .failureHandler(new DefaultAuthenticationFailureHandler()))
+                .logout(logout -> logout
+                        .logoutUrl("/performLogout")
+                        .logoutSuccessUrl("/index")
+                        .deleteCookies("JSESSIONID")
+                        .logoutSuccessHandler(logoutSuccessHandler())
+                );
+        return http.build();
 
     }
-
-//    @Bean
-//    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-//        http
-//                .csrf(csrf -> {
-//                    csrf.disable();
-//                })  // Disables CSRF protection using the new API
-//                .authorizeHttpRequests(auth -> auth
-//                        .requestMatchers("/home").hasAnyRole("ADMIN", "USER")
-//                        .requestMatchers("/index").permitAll()
-//                        .anyRequest().authenticated()
-//                )
-//                .formLogin(form -> form
-//                        .loginPage("/index")
-//                        .loginProcessingUrl("/perform_login")
-//                        .defaultSuccessUrl("/home", true)
-//                        .failureUrl("/index?error=true")
-//                        .usernameParameter("email")
-//                        .passwordParameter("password")
-//                )
-//                .logout(logout -> logout
-//                        .logoutUrl("/perform_logout")
-//                        .logoutSuccessUrl("/index?logout=true")
-//                        .invalidateHttpSession(true)
-//                );
-//
-//        return http.build();
-//    }
+    @Bean
+    public AuthenticationFailureHandler authenticationFailureHandler() {
+        return new DefaultAuthenticationFailureHandler();
+    }
+    @Bean
+    public LogoutSuccessHandler logoutSuccessHandler() {
+        return new DefaultLogoutSuccessHandler();
+    }
 }
