@@ -19,7 +19,7 @@ body {
 }
 .btn-signup {
     width: 100%;
-    background-color: #007bff;
+    background-color: #0056b3;
     color: #fff;
     border: none;
     padding: 10px;
@@ -27,5 +27,18 @@ body {
     font-size: 16px;
 }
 .btn-signup:hover {
-    background-color: #0056b3;
+    background-color: #007bff;
+}
+.btn-cancel {
+    width: 100%;
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 16px;
+    margin-top: 10px;
+}
+.btn-cancel:hover {
+    background-color: #c82333;
 }

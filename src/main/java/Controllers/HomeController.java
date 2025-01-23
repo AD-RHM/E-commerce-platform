@@ -1,5 +1,6 @@
 package Controllers;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +15,7 @@ public class HomeController {
         return "index";
     }
     @GetMapping("/homepage")
+    @PreAuthorize("hasAnyRole('ADMIN','USER')")
     public String homePage(){
         return "HomePage";
     }
@@ -24,5 +26,9 @@ public class HomeController {
     @GetMapping("/SignIn")
     public String signIn(){
         return "SignIn";
+    }
+    @GetMapping("/ProductPage")
+    public String productPage(){
+        return "ProductPage";
     }
 }

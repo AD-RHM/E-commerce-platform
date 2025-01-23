@@ -1,29 +1,33 @@
 package Model;
 
 import jakarta.persistence.*;
+import lombok.Data;
 import lombok.NonNull;
 
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-
-
+@Data
 @Entity
 public class Cart {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "cart_id")
+    @Column(name = "CartID")
     private Long cartId;
 
+    @Column(name = "CreatedAt")
+    private LocalDateTime createdAt;
 
-    @Column(name = "cart_name")
-    private String cartName;
+    @Column(name = "UpdatedAt")
+    private LocalDateTime updatedAt;
 
-    @OneToOne
-    private User user;
+    @Column(name = "UserID", nullable = false)
+    private Long userID;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "cart_products",
@@ -38,35 +42,5 @@ public class Cart {
         products = new ArrayList<>();
     }
 
-    public Long getCartId() {
-        return cartId;
-    }
 
-    public void setCartId(Long cartId) {
-        this.cartId = cartId;
-    }
-
-    public String getCartName() {
-        return cartName;
-    }
-
-    public void setCartName(String cartName) {
-        this.cartName = cartName;
-    }
-
-    public List<Product> getProducts() {
-        return products;
-    }
-
-    public void setProducts(List<Product> products) {
-        this.products = products;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
 }

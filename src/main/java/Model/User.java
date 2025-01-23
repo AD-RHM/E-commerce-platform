@@ -1,50 +1,61 @@
 package Model;
 
 import jakarta.persistence.*;
+import lombok.Data;
+
 
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "users")
+
+@Entity(name = "User")
+@Table(
+        name = "user",
+        uniqueConstraints = {
+                @UniqueConstraint(name = "Email_Unique_Constraint", columnNames = "Email")
+        })
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(
+            name = "Users_Sequence",
+            sequenceName = "Users_Sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "Users_Sequence"
+    )
+    @Column(name = "UserID", updatable = false, nullable = false)
     private Long userId;
 
-    @Column(name = "FirstName" , nullable = false)
+    @Column(name = "FirstName" , nullable = false, columnDefinition = "TEXT")
     private String firstName;
 
-    @Column(name = "LastName")
+    @Column(name = "LastName", nullable = false, columnDefinition = "TEXT")
     private String lastName;
 
-    @Column(name = "Email")
+    @Column(name = "Email", nullable = false, unique = true, columnDefinition = "TEXT")
     private String email;
 
-    @Column(name = "password")
+    @Column(name = "PasswordHash", nullable = false, columnDefinition = "TEXT")
     private String password;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "Role")
     private Role role;
 
-    @Column(name = "PhoneNumber")
-    private String phoneNumber;
-
-    @Column(name = "Address")
-    private String address;
-
-    @Column(name = "City")
-    private String city;
-
-    @Column(name = "image")
-    private String image;
-
-    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "CreatedAt", updatable = false, nullable = false)
     private LocalDateTime createdAt;
 
-    @OneToOne
-    @JoinColumn(name = "cart_id")
-    private Cart cart;
+    public User() {}
+
+    public User(String firstName, String lastName, String email, String password, Role role) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+    }
 
     public Long getUserId() {
         return userId;
@@ -94,51 +105,11 @@ public class User {
         this.role = role;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
-    }
-
-    public Cart getCart() {
-        return cart;
-    }
-
-    public void setCart(Cart cart) {
-        this.cart = cart;
     }
 }
