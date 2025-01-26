@@ -11,12 +11,8 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Entity(name = "User")
-@Table(
-        name = "user",
-        uniqueConstraints = {
-                @UniqueConstraint(name = "Email_Unique_Constraint", columnNames = "Email")
-        })
+@Entity(name = "Users")
+@Table(name = "users")
 public class User {
 
     @Id
@@ -51,15 +47,7 @@ public class User {
     @Column(name = "CreatedAt", updatable = false, nullable = false)
     private LocalDateTime createdAt;
 
-    @OneToOne
-    @JoinColumn(name = "cartID")
+    @OneToOne(mappedBy = "user")
     private Cart cart;
 
-    public User(String firstName, String lastName, String email, String password, Role role) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.password = password;
-        this.role = role;
-    }
 }

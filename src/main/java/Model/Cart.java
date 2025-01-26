@@ -3,6 +3,7 @@ package Model;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -35,21 +36,10 @@ public class Cart {
     private LocalDateTime updatedAt;
 
     @OneToOne
-    @JoinColumn(name = "userID")
+    @JoinColumn(name = "userID", referencedColumnName = "UserID", nullable = false)
     private User user;
 
-    @ManyToMany
-    @JoinTable(
-            name = "cart_product",
-            joinColumns = @JoinColumn(name = "cartID"),
-            inverseJoinColumns = @JoinColumn(name = "productID")
-    )
-    private List<Product> productsInCart;
-
-
-
-
-
-
+    @OneToMany(mappedBy = "cartInCart_Product", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<CartProduct> cartProducts = new ArrayList<>();
 
 }

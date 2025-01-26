@@ -1,66 +1,81 @@
 package Model;
 
-public enum Category{;
+public enum Category {
+    // Computers
+    DESKTOPS("Desktops", CategoryGroup.COMPUTERS),
+    LAPTOPS("Laptops", CategoryGroup.COMPUTERS),
+    MINIPCS("Mini PCs", CategoryGroup.COMPUTERS),
 
-    enum Computers{
-        Desktops("Desktops"), Laptops("Laptops"), MiniPCs("Mini PCs");
-        private final String displayName;
+    // Components
+    PROCESSORS("Processors (CPUs)", CategoryGroup.COMPONENTS),
+    GRAPHICS("Graphics Cards (GPUs)", CategoryGroup.COMPONENTS),
+    MOTHERBOARDS("Motherboards", CategoryGroup.COMPONENTS),
+    MEMORY("Memory (RAM)", CategoryGroup.COMPONENTS),
+    STORAGE("Storage (HDDs, SSDs, NVMe drives)", CategoryGroup.COMPONENTS),
+    POWER_SUPPLIES("Power Supplies (PSUs)", CategoryGroup.COMPONENTS),
+    COOLING("Cooling Solutions (Fans, Liquid Cooling Systems)", CategoryGroup.COMPONENTS),
+    CABLES_ADAPTERS("Cables and Adapters", CategoryGroup.COMPONENTS),
+    BAGS_CASES("Bags and Cases", CategoryGroup.COMPONENTS),
 
-        Computers(String displayName) {
-            this.displayName = displayName;
-        }
-        public String displayName() { return displayName; }
-        // Optionally and/or additionally, toString.
-        @Override public String toString() { return displayName; }
+    // Peripherals
+    MONITORS("Monitors", CategoryGroup.PERIPHERALS),
+    KEYBOARDS("Keyboards (Mechanical, Membrane, Wireless)", CategoryGroup.PERIPHERALS),
+    MICE("Mice (Gaming, Ergonomic, Wireless)", CategoryGroup.PERIPHERALS),
+    PRINTERS_SCANNERS("Printers and Scanners", CategoryGroup.PERIPHERALS),
+    HEADPHONES_MICROPHONES("Headphones and Microphones", CategoryGroup.PERIPHERALS),
+    WEBCAMS("Webcams", CategoryGroup.PERIPHERALS),
+
+    // Networking
+    ROUTERS_MODEMS("Routers and Modems", CategoryGroup.NETWORKING),
+    SWITCHES("Switches", CategoryGroup.NETWORKING),
+    NETWORK_ADAPTERS_CARDS("Network Adapters and Cards", CategoryGroup.NETWORKING),
+    WIFI_EXTENDERS("Wi-Fi Extenders", CategoryGroup.NETWORKING),
+    NETWORK_CABLES("Cables", CategoryGroup.NETWORKING),
+
+    // Software
+    OPERATING_SYSTEMS("Operating Systems", CategoryGroup.SOFTWARE),
+    PRODUCTIVITY_TOOLS("Productivity Tools", CategoryGroup.SOFTWARE),
+    DEVELOPMENT_TOOLS("Development Tools", CategoryGroup.SOFTWARE),
+    ANTIVIRUS("Antivirus and Security", CategoryGroup.SOFTWARE),
+    MULTIMEDIA_EDITING_TOOLS("Multimedia Editing Tools", CategoryGroup.SOFTWARE),
+    LICENSES_SUBSCRIPTIONS("Licenses and Subscriptions", CategoryGroup.SOFTWARE),
+
+    // Gaming
+    GAMING_CONSOLES("PlayStation, Xbox, Nintendo", CategoryGroup.GAMING),
+    GAMING_ACCESSORIES("Controllers, VR Headsets, Joysticks", CategoryGroup.GAMING),
+    GAMING_CHAIRS_DESKS("Gaming Chairs and Desks", CategoryGroup.GAMING),
+    GAME_TITLES_SUBSCRIPTIONS("Game Titles and Subscriptions", CategoryGroup.GAMING);
+
+    private final String displayName;
+    private final CategoryGroup group;
+
+    // Constructor
+    Category(String displayName, CategoryGroup group) {
+        this.displayName = displayName;
+        this.group = group;
     }
-    enum Components{
-        Processors("Processors (CPUs)"), Graphics("Graphics Cards (GPUs)"), Motherboards("Motherboards"), Memory("Memory (RAM)"), Storage("Storage (HDDs, SSDs, NVMe drives)"),
-        Supplies("Power Supplies (PSUs)"), Cooling("Cooling Solutions (Fans, Liquid Cooling Systems)"), Cables_Adapters("Cables and Adapters"), Bags_Cases("Bags and Cases");
-        private final String displayName;
-        Components(String displayName) {
-            this.displayName = displayName;
-        }
-        public String displayName() { return displayName; }
-        @Override public String toString() { return displayName; }
+
+    public String getDisplayName() {
+        return displayName;
     }
-    enum Peripherals{
-        Monitors("Monitors"), Keyboards("Keyboards (Mechanical, Membrane, Wireless)"), Mice("Mice (Gaming, Ergonomic, Wireless)"), Printers_Scanners("Printers and Scanners"),
-        Headphones_Microphones("Headphones and Microphones"), Webcams("Webcams");
-        private final String displayName;
-        Peripherals(String displayName) {
-            this.displayName = displayName;
-        }
-        public String displayName() { return displayName; }
-        @Override public String toString() { return displayName; }
+
+    public CategoryGroup getGroup() {
+        return group;
     }
-    enum Networking{
-        Routers_Modems("Routers and Modems"), Switches("Switches"), Network_Adapters_Cards("Network Adapters and Cards"), WiFi_Extenders("Wi-Fi Extenders"),
-        Cables("Cables");
-        private final String displayName;
-        Networking(String displayName) {
-            this.displayName = displayName;
-        }
-        public String displayName() { return displayName; }
-        @Override public String toString() { return displayName; }
+
+    @Override
+    public String toString() {
+        return displayName;
     }
-    enum Software{
-        Operating_Systems("Operating Systems"), Productivity_Tools("Productivity Tools"), Development_Tools("Development Tools"), Antivirus("Antivirus and Security"),
-        Multimedia_Editing_Tools("Multimedia Editing Tools"), Licenses_Subscriptions("Licenses and Subscriptions");
-        private final String displayName;
-        Software(String displayName) {
-            this.displayName = displayName;
-        }
-        public String displayName() { return displayName; }
-        @Override public String toString() { return displayName; }
-    }
-    enum Gaming{
-        Gaming_Consoles("PlayStation, Xbox, Nintendo"), Gaming_Accessories("Controllers, VR Headsets, Joysticks"), Gaming_Chairs_Desks("Gaming Chairs and Desks"),
-        GameTitles_Subscriptions("Game Titles and Subscriptions");
-        private final String displayName;
-        Gaming(String displayName) {
-            this.displayName = displayName;
-        }
-        public String displayName() { return displayName; }
-        @Override public String toString() { return displayName; }
+
+    // Enum to Represent Groups
+    public enum CategoryGroup {
+        COMPUTERS,
+        COMPONENTS,
+        PERIPHERALS,
+        NETWORKING,
+        SOFTWARE,
+        GAMING;
     }
 }
+

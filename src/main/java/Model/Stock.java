@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -40,12 +41,8 @@ public class Stock {
     @Column(name = "updatedAt")
     private LocalDateTime updatedAt;
 
-    @ManyToMany()
-    @JoinTable(
-            name = "stock_product",
-            joinColumns = @JoinColumn(name = "stockID"),
-            inverseJoinColumns = @JoinColumn(name = "productID")
-    )
-    private List<Product> productsInStock;
+
+    @OneToMany(mappedBy = "stockInStock_Product", cascade = CascadeType.ALL)
+    private List<StockProduct> stockProducts = new ArrayList<>();
 
 }

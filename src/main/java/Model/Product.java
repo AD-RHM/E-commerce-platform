@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -17,20 +18,29 @@ import java.util.UUID;
 public class Product {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(
+            name = "product_sequence",
+            sequenceName = "product_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "product_sequence"
+    )
+    @Column(name = "productID")
     private Long product_id;
 
-    @Column(name = "ProductName")
+    @Column(name = "ProductName", nullable = false)
     private String productName;
 
-    @Column(name = "Description")
+    @Column(name = "Description", nullable = false)
     private String description;
 
-    @Column(name = "Category")
+    @Column(name = "Category" , nullable = false)
     @Enumerated(EnumType.STRING)
     private Category category;
 
-    @Column(name = "Price")
+    @Column(name = "Price", nullable = false)
     private double price;
 
     @Column(name = "CreatedAt")
@@ -41,12 +51,10 @@ public class Product {
     @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime updateAt;
 
-    @ManyToMany(mappedBy = "productsInCart")
-    @JoinColumn
-    private List<Cart> carts;
+    @OneToMany(mappedBy = "productInCart_Product", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<CartProduct> cartProducts = new ArrayList<>();
 
-    @ManyToMany(mappedBy = "productsInStock")
-    @JoinColumn
-    private List<Stock> stocks;
+    @OneToMany(mappedBy = "productInStock_Product", cascade = CascadeType.ALL)
+    private List<StockProduct> stockProducts = new ArrayList<>();
 
 }
