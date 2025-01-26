@@ -1,23 +1,31 @@
 package Model;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.NonNull;
-
-
-import java.time.LocalDate;
+import lombok.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
-@Data
-@Entity
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity(name = "Cart")
+@Table(name = "cart")
+@Builder
 public class Cart {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "CartID")
+    @SequenceGenerator(
+            name = "Cart_Sequence",
+            sequenceName = "Cart_Sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "Cart_Sequence"
+    )
+    @Column(name = "CartID", nullable = false, updatable = false)
     private Long cartId;
 
     @Column(name = "CreatedAt")
@@ -26,21 +34,22 @@ public class Cart {
     @Column(name = "UpdatedAt")
     private LocalDateTime updatedAt;
 
-    @Column(name = "UserID", nullable = false)
-    private Long userID;
+    @OneToOne
+    @JoinColumn(name = "userID")
+    private User user;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "cart_products",
-            joinColumns = @JoinColumn(name = "product_id"),
-            inverseJoinColumns = @JoinColumn(name = "cart_id"))
+    @ManyToMany
+    @JoinTable(
+            name = "cart_product",
+            joinColumns = @JoinColumn(name = "cartID"),
+            inverseJoinColumns = @JoinColumn(name = "productID")
+    )
+    private List<Product> productsInCart;
 
-    private List<Product> products;
 
 
-    public Cart() {
-        // Constructor can remain empty if no additional logic is needed
-        products = new ArrayList<>();
-    }
+
+
 
 
 }
