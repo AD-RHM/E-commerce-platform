@@ -20,7 +20,7 @@ public class StockProduct {
     )
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
-            generator = "stock_product"
+            generator = "stock_product_sequence"
     )
     private Long id;
 
