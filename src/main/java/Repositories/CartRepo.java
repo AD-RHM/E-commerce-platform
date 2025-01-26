@@ -1,6 +1,6 @@
 package Repositories;
 
-import Model.Cart;
+import Entities.Cart;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

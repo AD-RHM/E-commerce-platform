@@ -1,4 +1,4 @@
-package Model;
+package Entities;
 
 import jakarta.persistence.*;
 import lombok.*;
