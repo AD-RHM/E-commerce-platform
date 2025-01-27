@@ -1,37 +1,35 @@
-//package Services;
-//
-//import Model.Cart;
-//import Model.User;
-//import Repository.CartRepository;
-//import Repository.InitialFunctions;
-//import Repository.UserRepo;
-//import Repository.UserRepository;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.stereotype.Service;
-//
+package Services;
+
+import Entities.Cart;
+import Entities.User;
+import Repositories.CartRepo;
+import Repositories.UserRepo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 //@Service
 //public class UserServices {
-//    //private UserRepository userRepository;
-//    private UserRepo UserRepository;
-//    private CartRepository cartRepository;
+//
+//    private UserRepo userRepository;
+//    private CartRepo cartRepository;
 //
 //    @Autowired
 //    public UserServices() {
-//        userRepository = new UserRepository();
-//        cartRepository = new CartRepository();
+//
 //    }
 //
 //    public boolean signUp(User user) {
-//        if (!userRepository.checkUniqueUser(user.getEmail())){
+//        if (!userRepository.existsByEmail(user.getEmail())){
 //            Cart cart = new Cart();
-//            cart.setCartName(user.getFirstName() + " " + user.getLastName());
-//            cartRepository.add(cart);
+//            cart.setLabel(user.getFirstName() + user.getLastName() + "cart");
 //            user.setCart(cart);
-//            userRepository.add(user);
+//            cartRepository.save(cart);
+//
+//            userRepository.save(user);
 //            return true;
 //        }else return false;
 //    }
-//
+
 //    public boolean login(User user) {
 //        return (userRepository.checkUser(user.getEmail(), user.getPassword()));
 //    }
@@ -41,5 +39,5 @@
 //            return userRepository.edit(user);
 //        }else return false;
 //    }
-//
+
 //}

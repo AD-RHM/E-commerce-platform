@@ -6,13 +6,14 @@ import lombok.*;
 
 import java.time.LocalDateTime;
 
+
+@Entity
+@Table(name = "users")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-@Entity(name = "Users")
-@Table(name = "users")
+@Builder(toBuilder = true)
 public class User {
 
     @Id
@@ -25,29 +26,30 @@ public class User {
             strategy = GenerationType.SEQUENCE,
             generator = "Users_Sequence"
     )
-    @Column(name = "UserID", updatable = false, nullable = false)
+    @Column(name = "userid", updatable = false, nullable = false)
     private Long userId;
 
-    @Column(name = "FirstName" , nullable = false, columnDefinition = "TEXT")
+    @Column(name = "first_name" , nullable = false, columnDefinition = "TEXT")
     private String firstName;
 
-    @Column(name = "LastName", nullable = false, columnDefinition = "TEXT")
+    @Column(name = "last_name", nullable = false, columnDefinition = "TEXT")
     private String lastName;
 
-    @Column(name = "Email", nullable = false, unique = true, columnDefinition = "TEXT")
+    @Column(name = "email", nullable = false, unique = true, columnDefinition = "TEXT")
     private String email;
 
-    @Column(name = "PasswordHash", nullable = false, columnDefinition = "TEXT")
+    @Column(name = "password_hash", nullable = false, columnDefinition = "TEXT")
     private String password;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "Role")
     private Role role;
 
-    @Column(name = "CreatedAt", updatable = false, nullable = false)
+    @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
 
     @OneToOne(mappedBy = "user")
     private Cart cart;
+
 
 }

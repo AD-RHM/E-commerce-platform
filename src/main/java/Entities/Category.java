@@ -75,7 +75,7 @@ public enum Category {
         PERIPHERALS,
         NETWORKING,
         SOFTWARE,
-        GAMING;
+        GAMING
     }
 }
 

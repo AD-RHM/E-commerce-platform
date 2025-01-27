@@ -29,6 +29,9 @@ public class Cart {
     @Column(name = "CartID", nullable = false, updatable = false)
     private Long cartId;
 
+    @Column(name = "label", nullable = false)
+    private String label;
+
     @Column(name = "CreatedAt")
     private LocalDateTime createdAt;
 
