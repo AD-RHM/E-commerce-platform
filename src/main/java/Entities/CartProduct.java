@@ -3,8 +3,7 @@ package Entities;
 import jakarta.persistence.*;
 import lombok.*;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -25,11 +24,11 @@ public class CartProduct {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "cart_id", columnDefinition = "BIGINT",referencedColumnName = "cartID",nullable = false)
+    @JoinColumn(name = "cart_id", columnDefinition = "BIGINT",referencedColumnName = "CartID",nullable = false)
     private Cart cartInCart_Product;
 
     @ManyToOne
-    @JoinColumn(name = "product_id", columnDefinition = "BIGINT",referencedColumnName = "productID", nullable = false)
+    @JoinColumn(name = "product_id", columnDefinition = "BIGINT",referencedColumnName = "ProductID", nullable = false)
     private Product productInCart_Product;
 
     @Column(name = "quantity", nullable = false)

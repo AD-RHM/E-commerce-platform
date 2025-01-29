@@ -8,13 +8,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-
 import java.time.LocalDateTime;
-
 
 @SpringBootApplication(scanBasePackages = {"Controllers"})
 @EntityScan(basePackages = {"Entities"})
 @EnableJpaRepositories(basePackages = {"Repositories"})
+
 
 public class ECommercePlatformApplication {
 
@@ -22,19 +21,21 @@ public class ECommercePlatformApplication {
 		SpringApplication.run(ECommercePlatformApplication.class, args);
 	}
 
-	@Bean
-	public CommandLineRunner commandLineRunner(UserRepo userRepo) {
-		return args -> {
-			User user = User.builder()
-					.firstName("John")
-					.lastName("Doe")
-					.email("john.doe@example.com")
-					.password("password_hash")
-					.role(Role.USER)
-					.createdAt(LocalDateTime.now())
-					.build();
-			userRepo.save(user);
-		};
-	}
+//	@Bean
+//	public CommandLineRunner commandLineRunner(UserRepo userRepo) {
+//		return args -> {
+////			var user = User.builder()
+////					.firstName("John")
+////					.lastName("Doe")
+////					.email("john.doe@example.com")
+////					.password("password_hash")
+////					.role(Role.USER)
+////					.createdAt(LocalDateTime.now())
+////					.build();
+//			var user = new User();
+//			user = userRepo.findById(1L).get();
+//			userRepo.deleteById(user.getUserId());
+//		};
+//	}
 }
 

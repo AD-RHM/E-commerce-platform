@@ -7,8 +7,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "product")
@@ -27,7 +26,7 @@ public class Product {
             generator = "product_sequence"
     )
     @Column(name = "productID")
-    private Long product_id;
+    private Long productId;
 
     @Column(name = "ProductName", nullable = false)
     private String productName;
