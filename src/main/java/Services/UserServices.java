@@ -32,11 +32,11 @@ public class UserServices {
     }
 
     public User login(String email, String password) {
-        if (userRepository.existsByEmail(email)) {
-            return userRepository.findByEmailAndPassword(email, password);
-        }
+        if (userRepository.existsByEmail(email)) {return userRepository.findByEmailAndPassword(email, password);}
         else return null;
     }
+
+
 
 //    public boolean editProfile(User user) {
 //        if(user != null) {
