@@ -17,25 +17,25 @@ public class UserServices {
     @Autowired
     private CartRepo cartRepository;
 
-//    @Autowired
-//    public UserServices() {
-//
-//    }
 
     public boolean signUp(User user) {
-        if (!userRepository.existsByEmail(user.getEmail())){
+        if (!userRepository.existsByEmail(user.getEmail())) {
             Cart cart = new Cart();
-            cart.setLabel(user.getFirstName() + user.getLastName() + "cart");
+            cart.setLabel(user.getFirstName() +" "+ user.getLastName());
             cart.setCreatedAt(LocalDateTime.now());
-            user.setCart(cart);
-            cartRepository.save(cart);
+            cart.setUpdatedAt(LocalDateTime.now());
+            cart.setUser(user);
             userRepository.save(user);
+            cartRepository.save(cart);
             return true;
         }else return false;
     }
 
     public User login(String email, String password) {
-        return (userRepository.findUserByPasswordAndEmail(password, email));
+        if (userRepository.existsByEmail(email)) {
+            return userRepository.findByEmailAndPassword(email, password);
+        }
+        else return null;
     }
 
 //    public boolean editProfile(User user) {
