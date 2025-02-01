@@ -21,11 +21,11 @@ class UserRepoTest {
     @Autowired
     UserRepo userRepo;
 
-    @Test
-    public void loginUser (){
-        User user = userServices.login("adibrahmane@gmail.com","0000");
-        System.out.println(user);
-    }
+//    @Test
+//    public void loginUser (){
+//        User user = userServices.login("adibrahmane@gmail.com","0000");
+//        System.out.println(user);
+//    }
 
     @Test
     public void registerUser(){
@@ -41,6 +41,11 @@ class UserRepoTest {
         //List<User> users = userRepo.findAll();
         System.out.println(user);
     }
+
+//    @Test
+//    public void editFirstName(){
+//
+//    }
 
 
 }

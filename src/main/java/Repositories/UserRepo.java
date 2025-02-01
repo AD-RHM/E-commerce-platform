@@ -20,5 +20,24 @@ public interface UserRepo extends JpaRepository<User, Long> {
             value = "Update users u set u.first_name = :first_name where u.userid = :userid",
             nativeQuery = true
     )
-    boolean updateFirstName(@Param("first_name") Long id,@Param("userid") String firstName);
+    boolean updateFirstName(@Param("userid") Long id,@Param("first_name") String firstName);
+
+    @Query(
+            value = "Update users u set u.last_name = :last_name where u.userid = :userid",
+            nativeQuery = true
+    )
+    boolean updateLastName(@Param("userid") Long id,@Param("last_name") String lastName);
+
+    @Query(
+            value = "Update users u set u.password_hash = :password_hash where u.userid = :userid",
+            nativeQuery = true
+    )
+    boolean updatePassword(@Param("userid") Long id,@Param("password_hash") String password_hash);
+
+    @Query(
+            value = "Update users u set u.email = :email where u.userid = :userid",
+            nativeQuery = true
+    )
+    boolean updateEmail(@Param("userid") Long id,@Param("email") String firstName);
+
 }

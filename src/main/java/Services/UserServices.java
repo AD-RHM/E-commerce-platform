@@ -38,10 +38,14 @@ public class UserServices {
 
 
 
-//    public boolean editProfile(User user) {
-//        if(user != null) {
-//            return true;
-//        }else return false;
-//    }
+    public User editProfile(User user) {
+        if(user != null) {
+            if (user.getFirstName() != null) {userRepository.updateFirstName(user.getUserId(), user.getFirstName());}
+            if (user.getLastName() != null) {userRepository.updateLastName(user.getUserId(), user.getLastName());}
+            if (user.getEmail() != null) {userRepository.updateEmail(user.getUserId(), user.getEmail());}
+            if (user.getPassword() != null) {userRepository.updatePassword(user.getUserId(), user.getPassword());}
+            return userRepository.findById(user.getUserId()).orElse(null);
+        }else return null;
+    }
 
 }
