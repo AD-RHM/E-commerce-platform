@@ -17,6 +17,12 @@ public class UserServices {
     @Autowired
     private CartRepo cartRepository;
 
+    @Autowired
+    public UserServices(UserRepo userRepository, CartRepo cartRepository) {
+        this.userRepository = userRepository;
+        this.cartRepository = cartRepository;
+    }
+
 
     public boolean signUp(User user) {
         if (!userRepository.existsByEmail(user.getEmail())) {
