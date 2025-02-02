@@ -18,8 +18,8 @@ class UserRepoTest {
     @Autowired
     private UserServices userServices;
 
-    @Autowired
-    UserRepo userRepo;
+//    @Autowired
+//    UserRepo userRepo;
 
 //    @Test
 //    public void loginUser (){
@@ -27,25 +27,40 @@ class UserRepoTest {
 //        System.out.println(user);
 //    }
 
-    @Test
-    public void registerUser(){
-        User user = User.builder()
-                .firstName("ADIB")
-                .lastName("RAHMANE")
-                .email("RAHMANE@gmail.com")
-                .password("4444")
-                .createdAt(LocalDateTime.now())
-                .role(Role.ADMIN)
-                .build();
-        userServices.signUp(user);
-        //List<User> users = userRepo.findAll();
-        System.out.println(user);
-    }
+//    @Test
+//    public void registerUser(){
+//        User user = User.builder()
+//                .firstName("ADIB")
+//                .lastName("RAHMANE")
+//                .email("adib@gmail.com")
+//                .password("5555")
+//                .createdAt(LocalDateTime.now())
+//                .role(Role.USER)
+//                .build();
+//        userServices.signUp(user);
+//        //List<User> users = userRepo.findAll();
+//        System.out.println(user);
+//    }
 
 //    @Test
 //    public void editFirstName(){
+//        User user = User.builder()
+//                .firstName("ADIB")
+//                .lastName("RAHMANE")
+//                .password("555567")
+//                .role(Role.ADMIN)
+//                .build();
+//        userServices.editProfile(2L,user);
 //
 //    }
+    @Test
+    public void showAll(){
+        for (User user : userServices.getAllUsers()){
+            System.out.println(user.getUserId() + " " + user.getFirstName() + " " + user.getLastName() + " " + user.getEmail() + " " +
+                    user.getPassword() + " " + user.getRole());
+
+        }
+    }
 
 
 }

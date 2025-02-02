@@ -12,7 +12,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import java.time.LocalDateTime;
 
 
-@SpringBootApplication(scanBasePackages = {"Controllers"})
+@SpringBootApplication(scanBasePackages = {"Controllers","Services"})
 @EntityScan(basePackages = {"Entities"})
 @EnableJpaRepositories(basePackages = {"Repositories"})
 
@@ -22,19 +22,5 @@ public class ECommercePlatformApplication {
 		SpringApplication.run(ECommercePlatformApplication.class, args);
 	}
 
-//	@Bean
-//	public CommandLineRunner commandLineRunner(UserRepo userRepo) {
-//		return args -> {
-//			User user = User.builder()
-//					.firstName("John")
-//					.lastName("Doe")
-//					.email("john.doe@example.com")
-//					.password("password_hash")
-//					.role(Role.USER)
-//					.createdAt(LocalDateTime.now())
-//					.build();
-//			userRepo.save(user);
-//		};
-//	}
 }
 

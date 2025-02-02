@@ -1,13 +1,16 @@
 package Services;
 
 import Entities.Cart;
+import Entities.Role;
 import Entities.User;
 import Repositories.CartRepo;
 import Repositories.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class UserServices {
@@ -43,15 +46,18 @@ public class UserServices {
     }
 
 
-
-    public User editProfile(User user) {
+    public User editProfile(Long id, User user) {
         if(user != null) {
-            if (user.getFirstName() != null) {userRepository.updateFirstName(user.getUserId(), user.getFirstName());}
-            if (user.getLastName() != null) {userRepository.updateLastName(user.getUserId(), user.getLastName());}
-            if (user.getEmail() != null) {userRepository.updateEmail(user.getUserId(), user.getEmail());}
-            if (user.getPassword() != null) {userRepository.updatePassword(user.getUserId(), user.getPassword());}
-            return userRepository.findById(user.getUserId()).orElse(null);
+            if (user.getFirstName() != null) {userRepository.updateFirstName(id, user.getFirstName());}
+            if (user.getLastName() != null) {userRepository.updateLastName(id, user.getLastName());}
+            if (user.getEmail() != null) {userRepository.updateEmail(id, user.getEmail());}
+            if (user.getPassword() != null) {userRepository.updatePassword(id, user.getPassword());}
+            return userRepository.findById(id).orElse(null);
         }else return null;
+    }
+
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
     }
 
 }

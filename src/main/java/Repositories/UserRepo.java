@@ -3,9 +3,11 @@ package Repositories;
 import Entities.User;
 import org.hibernate.sql.Update;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -16,28 +18,36 @@ public interface UserRepo extends JpaRepository<User, Long> {
     //@Query("Update User u SET u.firstName = ?2 where u.userId = ?1")
 
     //Native query Param
+    @Modifying
+    @Transactional
     @Query(
-            value = "Update users u set u.first_name = :first_name where u.userid = :userid",
+            value = "Update users set first_name = :first_name where userid = :userid",
             nativeQuery = true
     )
-    boolean updateFirstName(@Param("userid") Long id,@Param("first_name") String firstName);
+    void updateFirstName(@Param("userid") Long id,@Param("first_name") String firstName);
 
+    @Modifying
+    @Transactional
     @Query(
-            value = "Update users u set u.last_name = :last_name where u.userid = :userid",
+            value = "Update users set last_name = :last_name where userid = :userid",
             nativeQuery = true
     )
-    boolean updateLastName(@Param("userid") Long id,@Param("last_name") String lastName);
+    void updateLastName(@Param("userid") Long id,@Param("last_name") String lastName);
 
+    @Modifying
+    @Transactional
     @Query(
-            value = "Update users u set u.password_hash = :password_hash where u.userid = :userid",
+            value = "Update users set password_hash = :password_hash where userid = :userid",
             nativeQuery = true
     )
-    boolean updatePassword(@Param("userid") Long id,@Param("password_hash") String password_hash);
+    void updatePassword(@Param("userid") Long id,@Param("password_hash") String password_hash);
 
+    @Modifying
+    @Transactional
     @Query(
-            value = "Update users u set u.email = :email where u.userid = :userid",
+            value = "Update users set email = :email where userid = :userid",
             nativeQuery = true
     )
-    boolean updateEmail(@Param("userid") Long id,@Param("email") String firstName);
+    void updateEmail(@Param("userid") Long id,@Param("email") String firstName);
 
 }
