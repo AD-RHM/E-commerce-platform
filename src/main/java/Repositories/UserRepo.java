@@ -1,5 +1,6 @@
 package Repositories;
 
+import Entities.Role;
 import Entities.User;
 import org.hibernate.sql.Update;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -49,5 +50,6 @@ public interface UserRepo extends JpaRepository<User, Long> {
             nativeQuery = true
     )
     void updateEmail(@Param("userid") Long id,@Param("email") String firstName);
+
 
 }

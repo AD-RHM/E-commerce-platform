@@ -22,8 +22,8 @@ public interface CartRepo extends JpaRepository<Cart, Long> {
     @Modifying
     @Transactional
     @Query(
-            value = "UPDATE cart set label = :label, update_at = :update_at where cartid = :cartid",
+            value = "UPDATE cart set label = :label, updated_at = :updated_at where cartid = :cartid",
             nativeQuery = true
     )
-    void editCart(@Param("label") String label, @Param("update_at")LocalDateTime update_at, @Param("cartid") Long cartid);
+    void editCart(@Param("label") String label, @Param("updated_at")LocalDateTime updated_at, @Param("cartid") Long cartid);
 }

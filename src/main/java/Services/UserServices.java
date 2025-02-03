@@ -50,7 +50,7 @@ public class UserServices {
         if(user != null) {
             if (user.getFirstName() != null) {userRepository.updateFirstName(id, user.getFirstName());}
             if (user.getLastName() != null) {userRepository.updateLastName(id, user.getLastName());}
-            if (user.getEmail() != null) {userRepository.updateEmail(id, user.getEmail());}
+            if (!userRepository.existsByEmail(user.getEmail()) || user.getEmail() != null ) {userRepository.updateEmail(id, user.getEmail());}
             if (user.getPassword() != null) {userRepository.updatePassword(id, user.getPassword());}
             return userRepository.findById(id).orElse(null);
         }else return null;

@@ -27,32 +27,32 @@ class UserRepoTest {
 //        System.out.println(user);
 //    }
 
-//    @Test
-//    public void registerUser(){
-//        User user = User.builder()
-//                .firstName("ADIB")
-//                .lastName("RAHMANE")
-//                .email("adib@gmail.com")
-//                .password("5555")
-//                .createdAt(LocalDateTime.now())
-//                .role(Role.USER)
-//                .build();
-//        userServices.signUp(user);
-//        //List<User> users = userRepo.findAll();
-//        System.out.println(user);
-//    }
+    @Test
+    public void registerUser(){
+        User user = User.builder()
+                .firstName("X")
+                .lastName("Y")
+                .email("x@gmail.com")
+                .password("11111")
+                .createdAt(LocalDateTime.now())
+                .role(Role.ADMIN)
+                .build();
+        userServices.signUp(user);
+        //List<User> users = userRepo.findAll();
+        System.out.println(user);
+    }
 
-//    @Test
-//    public void editFirstName(){
-//        User user = User.builder()
-//                .firstName("ADIB")
-//                .lastName("RAHMANE")
-//                .password("555567")
-//                .role(Role.ADMIN)
-//                .build();
-//        userServices.editProfile(2L,user);
-//
-//    }
+    @Test
+    public void editFirstName(){
+        User user = User.builder()
+                .firstName("Y")
+                .lastName("X")
+                .email("Y@gmail.com")
+                .password("YYYY")
+                .build();
+        userServices.editProfile(1L,user);
+
+    }
     @Test
     public void showAll(){
         for (User user : userServices.getAllUsers()){
