@@ -9,18 +9,20 @@ import org.springframework.security.core.parameters.P;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 public interface CartRepo extends JpaRepository<Cart, Long> {
-    @Query(
-            value = "Select * from users left join cart on users.userid = cart.userid where userid = :userid",
-            nativeQuery = true
-    )
-    Cart findByUser_UserId(@Param("userid") Long userId);
+//    @Query(
+//            value = "Select cart.cartid, cart.created_at, cart.label, cart.updated_at, cart.userid " +
+//                    "from users left join cart on users.userid = cart.userid where users.userid = :userid",
+//            nativeQuery = true
+//    )
+//    Cart findByUserId(@Param("userid") Long userId);
 
     @Modifying
     @Transactional
     @Query(
-            value = "UPDATE cart set label = label, update_at = update_at where cartid = cartid",
+            value = "UPDATE cart set label = :label, update_at = :update_at where cartid = :cartid",
             nativeQuery = true
     )
     void editCart(@Param("label") String label, @Param("update_at")LocalDateTime update_at, @Param("cartid") Long cartid);
