@@ -17,7 +17,7 @@ class CartRepoTest {
     @Test
     public void showCart() {
 //        cartServices.editCartName(2L,"new label");
-        System.out.println(cartServices.editCartName(4L, "test"));
+        cartServices.editCartName(4L, "test");
     }
 
 }
