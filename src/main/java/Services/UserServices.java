@@ -1,12 +1,10 @@
 package Services;
 
 import Entities.Cart;
-import Entities.Role;
 import Entities.User;
 import Repositories.CartRepo;
 import Repositories.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
