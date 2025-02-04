@@ -17,7 +17,7 @@ class StockRepoTest {
     @Test
     void addStock() {
         Stock stock = Stock.builder()
-                .stockName("Stock 02")
+                .stockName("Stock 01")
                 .location("Setif")
                 .createdAt(LocalDateTime.now())
                 .build();

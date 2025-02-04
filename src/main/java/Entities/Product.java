@@ -28,7 +28,7 @@ public class Product {
     @Column(name = "productID")
     private Long productId;
 
-    @Column(name = "ProductName", nullable = false)
+    @Column(name = "product_name", nullable = false)
     private String productName;
 
     @Column(name = "Description", nullable = false)
@@ -41,11 +41,11 @@ public class Product {
     @Column(name = "Price", nullable = false)
     private double price;
 
-    @Column(name = "CreatedAt")
+    @Column(name = "created_at")
     @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime createdAt;
 
-    @Column(name = "UpdateAt")
+    @Column(name = "update_at")
     @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime updateAt;
 

@@ -31,13 +31,13 @@ public class Stock {
             nullable = false
     )
     private Long stockID;
-    @Column(name = "stockName")
+    @Column(name = "stock_name")
     private String stockName;
     @Column(name = "location")
     private String location;
-    @Column(name = "createdAt")
+    @Column(name = "created_at")
     private LocalDateTime createdAt;
-    @Column(name = "updatedAt")
+    @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
 

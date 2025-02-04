@@ -42,4 +42,7 @@ public class ProductSrvices {
     public List<Product> getAllProducts() {
         return productRepo.findAll();
     }
+    public Product getProductById(Long productId) {
+        return productRepo.findById(productId).orElse(null);
+    }
 }

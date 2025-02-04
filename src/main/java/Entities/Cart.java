@@ -25,16 +25,16 @@ public class Cart {
             strategy = GenerationType.SEQUENCE,
             generator = "Cart_Sequence"
     )
-    @Column(name = "CartID", nullable = false, updatable = false)
+    @Column(name = "cartid", nullable = false, updatable = false)
     private Long cartId;
 
     @Column(name = "label", nullable = false)
     private String label;
 
-    @Column(name = "CreatedAt")
+    @Column(name = "created_at")
     private LocalDateTime createdAt;
 
-    @Column(name = "UpdatedAt")
+    @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
     @OneToOne
