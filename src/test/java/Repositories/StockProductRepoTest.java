@@ -22,6 +22,7 @@ class StockProductRepoTest {
     private ProductSrvices productSrvices;
     @Autowired
     private StockServices stockServices;
+
     @Test
     void addStockProduct() {
         Product product = productSrvices.getProductById(1L);
@@ -32,6 +33,16 @@ class StockProductRepoTest {
                 .stockInStock_Product(stock)
                 .build();
         stockProductServices.addToStock(stockProduct);
+    }
+
+    @Test
+    void updateStockProduct() {
+        stockProductServices.updateQuantity(1L,50);
+    }
+
+    @Test
+    void deleteStockProduct() {
+        stockProductServices.deleteStockProduct(1L);
     }
 
 }

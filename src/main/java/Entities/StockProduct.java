@@ -22,14 +22,15 @@ public class StockProduct {
             strategy = GenerationType.SEQUENCE,
             generator = "stock_product_sequence"
     )
+    @Column(name = "stock_product_id", nullable = false, updatable = false)
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "product_id", columnDefinition = "BIGINT",referencedColumnName = "productID",nullable = false)
+    @JoinColumn(name = "product_id", columnDefinition = "BIGINT",referencedColumnName = "productID",nullable = false, foreignKey = @ForeignKey(name = "fk_product", foreignKeyDefinition = "ON DELETE CASCADE"))
     private Product productInStock_Product;
 
     @ManyToOne
-    @JoinColumn(name = "stock_id", columnDefinition = "BIGINT",referencedColumnName = "stockID", nullable = false)
+    @JoinColumn(name = "stock_id", columnDefinition = "BIGINT",referencedColumnName = "stockID", nullable = false, foreignKey = @ForeignKey(name = "fk_stock", foreignKeyDefinition = "ON DELETE CASCADE"))
     private Stock stockInStock_Product;
 
     @Column(name = "quantity", nullable = false)

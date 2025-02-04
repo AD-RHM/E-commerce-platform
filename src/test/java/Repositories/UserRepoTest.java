@@ -30,12 +30,12 @@ class UserRepoTest {
     @Test
     public void registerUser(){
         User user = User.builder()
-                .firstName("X")
-                .lastName("Y")
-                .email("x@gmail.com")
-                .password("11111")
+                .firstName("adib")
+                .lastName("rahmane")
+                .email("adib@gmail.com")
+                .password("0000")
                 .createdAt(LocalDateTime.now())
-                .role(Role.ADMIN)
+                .role(Role.USER)
                 .build();
         userServices.signUp(user);
         //List<User> users = userRepo.findAll();
