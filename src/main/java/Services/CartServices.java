@@ -20,8 +20,12 @@ public class CartServices {
         this.cartRepo = cartRepo;
         this.userRepo = userRepo;
     }
-    public Cart getCart() {
-        return userRepo.findById(4L).get().getCart();
+    public Cart getCart(Long id) {
+        return userRepo.findById(id).get().getCart();
+    }
+
+    public Cart getCartByUser(Long userId) {
+        return userRepo.findById(userId).get().getCart();
     }
 
     public List<Cart> getAllCart() {
@@ -31,5 +35,8 @@ public class CartServices {
     public void editCartName(Long idUser, String label) {
         Cart cart = userRepo.findById(idUser).get().getCart();
         cartRepo.editCart(label, LocalDateTime.now(), cart.getCartId());
+    }
+    public void deleteCart(Long userid) {
+        cartRepo.deleteByUserId(userid);
     }
 }

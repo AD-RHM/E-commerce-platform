@@ -29,5 +29,9 @@ class CartRepoTest {
             System.out.println(cart.getCartId() + " " + cart.getLabel());
         }
     }
+    @Test
+    public void deleteCart() {
+        cartServices.deleteCart(4L);
+    }
 
 }

@@ -2,6 +2,8 @@ package Entities;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -41,7 +43,7 @@ public class Stock {
     private LocalDateTime updatedAt;
 
 
-    @OneToMany(mappedBy = "stockInStock_Product", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "stockInStock_Product")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<StockProduct> stockProducts = new ArrayList<>();
-
 }

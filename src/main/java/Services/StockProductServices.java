@@ -29,8 +29,11 @@ public class StockProductServices {
     public void updateQuantity(Long productId, Integer quantity) {
         stockProductRepo.updateQuantity(productId, quantity);
     }
-    public void deleteStockProduct(Long productId) {
-        stockProductRepo.deleteProduct(productId);
+    public void deleteStockProduct(Long productId, Long stockId) {
+        stockProductRepo.deleteProduct(productId, stockId);
+    }
+    public Long getQuantity(Long productId, Long stockId) {
+
     }
 
 

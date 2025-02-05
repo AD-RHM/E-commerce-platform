@@ -42,7 +42,7 @@ class StockProductRepoTest {
 
     @Test
     void deleteStockProduct() {
-        stockProductServices.deleteStockProduct(1L);
+        stockProductServices.deleteStockProduct(1L, 1L);
     }
 
 }

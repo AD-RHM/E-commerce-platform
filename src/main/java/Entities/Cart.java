@@ -2,6 +2,9 @@ package Entities;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,10 +41,12 @@ public class Cart {
     private LocalDateTime updatedAt;
 
     @OneToOne
-    @JoinColumn(name = "userID", referencedColumnName = "UserID", nullable = false)
+    @JoinColumn(name = "userid", referencedColumnName = "userid", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
 
-    @OneToMany(mappedBy = "cartInCart_Product", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "cartInCart_Product")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<CartProduct> cartProducts = new ArrayList<>();
 
 }

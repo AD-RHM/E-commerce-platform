@@ -2,11 +2,12 @@ package Entities;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
-@Getter
-@Setter
-@NoArgsConstructor
+@Data
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
 @Entity
 @Table(name = "cart_product")
@@ -25,11 +26,21 @@ public class CartProduct {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "cart_id", columnDefinition = "BIGINT",referencedColumnName = "cartID",nullable = false)
+    @JoinColumn(
+            name = "cart_id",
+            referencedColumnName = "cartID",
+            nullable = false
+    )
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Cart cartInCart_Product;
 
     @ManyToOne
-    @JoinColumn(name = "product_id", columnDefinition = "BIGINT",referencedColumnName = "productID", nullable = false)
+    @JoinColumn(
+            name = "product_id",
+            referencedColumnName = "productID",
+            nullable = false
+    )
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Product productInCart_Product;
 
     @Column(name = "quantity", nullable = false)

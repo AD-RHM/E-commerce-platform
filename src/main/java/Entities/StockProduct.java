@@ -2,9 +2,10 @@ package Entities;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -26,14 +27,15 @@ public class StockProduct {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "product_id", columnDefinition = "BIGINT",referencedColumnName = "productID",nullable = false, foreignKey = @ForeignKey(name = "fk_product", foreignKeyDefinition = "ON DELETE CASCADE"))
+    @JoinColumn(name = "product_id", foreignKey = @ForeignKey(name = "fk_product"))
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Product productInStock_Product;
 
     @ManyToOne
-    @JoinColumn(name = "stock_id", columnDefinition = "BIGINT",referencedColumnName = "stockID", nullable = false, foreignKey = @ForeignKey(name = "fk_stock", foreignKeyDefinition = "ON DELETE CASCADE"))
+    @JoinColumn(name = "stock_id", foreignKey = @ForeignKey(name = "fk_stock"))
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Stock stockInStock_Product;
 
     @Column(name = "quantity", nullable = false)
     private int quantity;
-
 }

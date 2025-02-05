@@ -2,6 +2,8 @@ package Entities;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 
 import java.time.LocalDateTime;
@@ -29,7 +31,7 @@ public class User {
     @Column(name = "userid", updatable = false, nullable = false)
     private Long userId;
 
-    @Column(name = "first_name" , nullable = false, columnDefinition = "TEXT")
+    @Column(name = "first_name", nullable = false, columnDefinition = "TEXT")
     private String firstName;
 
     @Column(name = "last_name", nullable = false, columnDefinition = "TEXT")
@@ -49,7 +51,6 @@ public class User {
     private LocalDateTime createdAt;
 
     @OneToOne(mappedBy = "user")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Cart cart;
-
-
 }

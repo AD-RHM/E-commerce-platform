@@ -18,14 +18,12 @@ class UserRepoTest {
     @Autowired
     private UserServices userServices;
 
-//    @Autowired
-//    UserRepo userRepo;
 
-//    @Test
-//    public void loginUser (){
-//        User user = userServices.login("adibrahmane@gmail.com","0000");
-//        System.out.println(user);
-//    }
+    @Test
+    public void loginUser (){
+        User user = userServices.login("adibrahmane@gmail.com","0000");
+        System.out.println(user);
+    }
 
     @Test
     public void registerUser(){
@@ -38,17 +36,15 @@ class UserRepoTest {
                 .role(Role.USER)
                 .build();
         userServices.signUp(user);
-        //List<User> users = userRepo.findAll();
-        System.out.println(user);
     }
 
     @Test
     public void editFirstName(){
         User user = User.builder()
-                .firstName("Y")
-                .lastName("X")
-                .email("Y@gmail.com")
-                .password("YYYY")
+                .firstName("adib")
+                .lastName("rahmane")
+                .email("adib@gmail.com")
+                .password("0000")
                 .build();
         userServices.editProfile(1L,user);
 
@@ -60,6 +56,10 @@ class UserRepoTest {
                     user.getPassword() + " " + user.getRole());
 
         }
+    }
+    @Test
+    public void deleteUser(){
+        userServices.deleteUserByIdUser(4L);
     }
 
 

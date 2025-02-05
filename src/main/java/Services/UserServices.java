@@ -1,6 +1,7 @@
 package Services;
 
 import Entities.Cart;
+import Entities.Role;
 import Entities.User;
 import Repositories.CartRepo;
 import Repositories.UserRepo;
@@ -27,13 +28,17 @@ public class UserServices {
 
     public boolean signUp(User user) {
         if (!userRepository.existsByEmail(user.getEmail())) {
-            Cart cart = new Cart();
-            cart.setLabel(user.getFirstName() +" "+ user.getLastName());
-            cart.setCreatedAt(LocalDateTime.now());
-            cart.setUpdatedAt(LocalDateTime.now());
-            cart.setUser(user);
-            userRepository.save(user);
-            cartRepository.save(cart);
+            if (user.getRole() != Role.ADMIN){
+                Cart cart = new Cart();
+                cart.setLabel(user.getFirstName() +" "+ user.getLastName());
+                cart.setCreatedAt(LocalDateTime.now());
+                cart.setUpdatedAt(LocalDateTime.now());
+                cart.setUser(user);
+                userRepository.save(user);
+                cartRepository.save(cart);
+            }
+            else userRepository.save(user);
+
             return true;
         }else return false;
     }
@@ -56,6 +61,14 @@ public class UserServices {
 
     public List<User> getAllUsers() {
         return userRepository.findAll();
+    }
+
+    public User getUserByIdUser(Long idUser) {
+        return userRepository.findById(idUser).orElse(null);
+    }
+
+    public void deleteUserByIdUser(Long idUser) {
+        userRepository.deleteById(idUser);
     }
 
 }

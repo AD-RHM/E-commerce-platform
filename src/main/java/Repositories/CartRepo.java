@@ -12,12 +12,13 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 
 public interface CartRepo extends JpaRepository<Cart, Long> {
-//    @Query(
-//            value = "Select cart.cartid, cart.created_at, cart.label, cart.updated_at, cart.userid " +
-//                    "from users left join cart on users.userid = cart.userid where users.userid = :userid",
-//            nativeQuery = true
-//    )
-//    Cart findByUserId(@Param("userid") Long userId);
+    @Modifying
+    @Transactional
+    @Query(
+            value = "Delete from cart where cart.cartid = :cartid",
+            nativeQuery = true
+    )
+    void deleteByUserId(@Param("cartid") Long id);
 
     @Modifying
     @Transactional
@@ -26,4 +27,5 @@ public interface CartRepo extends JpaRepository<Cart, Long> {
             nativeQuery = true
     )
     void editCart(@Param("label") String label, @Param("updated_at")LocalDateTime updated_at, @Param("cartid") Long cartid);
+
 }
