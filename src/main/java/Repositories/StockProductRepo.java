@@ -23,4 +23,10 @@ public interface StockProductRepo extends JpaRepository<StockProduct, Long> {
             nativeQuery = true
     )
     void deleteProduct(@Param("product_id") Long product_id, @Param("stock_id") Long stock_id);
+
+    @Query(
+            value = "SELECT quantity from stock_product where product_id = :product_id and stock_id = :stock_id",
+            nativeQuery = true
+    )
+    Long getQuantity(@Param("stock_id") Long stock_id, @Param("product_id") Long product_id);
 }

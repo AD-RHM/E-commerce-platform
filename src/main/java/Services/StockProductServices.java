@@ -33,7 +33,7 @@ public class StockProductServices {
         stockProductRepo.deleteProduct(productId, stockId);
     }
     public Long getQuantity(Long productId, Long stockId) {
-
+        return stockProductRepo.getQuantity(productId, stockId);
     }
 
 

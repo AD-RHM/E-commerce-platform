@@ -1,7 +1,6 @@
 package Services;
 
 import Entities.CartProduct;
-import Entities.Product;
 import Repositories.CartProductRepo;
 import Repositories.CartRepo;
 import Repositories.ProductRepo;
@@ -31,8 +30,12 @@ public class CartProductServices {
     public void removeProductFromCart(Long productId, Long cartId) {
         cartProductRepo.deleteByCartIdAndProductId(cartId, productId);
     }
+    public void updateProductQuantity(Long productId ,Long cartId , Integer quantity) {
+        cartProductRepo.updateQuantity(productId, cartId, quantity);
+    }
     public List<CartProduct> getProductsFromCart(Long cartId) {
         return cartProductRepo.getProductsFromCart(cartId);
     }
+
 
 }

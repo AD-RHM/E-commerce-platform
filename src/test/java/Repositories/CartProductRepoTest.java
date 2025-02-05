@@ -3,7 +3,7 @@ package Repositories;
 import Entities.Cart;
 import Entities.CartProduct;
 import Entities.Product;
-import Entities.StockProduct;
+import Services.CartProductServices;
 import Services.ProductSrvices;
 import Services.StockProductServices;
 import Services.UserServices;
@@ -12,13 +12,13 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.util.List;
 
 @SpringBootTest(classes = ECommercePlatformApplication.class)
 class CartProductRepoTest {
 
     @Autowired
-    CartProductRepo cartProductRepo;
+    CartProductServices cartProductServices;
     @Autowired
     UserServices userServices;
     @Autowired
@@ -30,14 +30,31 @@ class CartProductRepoTest {
     public void addProductToCart() {
         Product product = productSrvices.getProductById(1L);
         Cart cart = userServices.getUserByIdUser(5L).getCart();
-        StockProductServices stockProduct = stockProductServices.
+        Long stockProduct = stockProductServices.getQuantity(1L,1L);
         CartProduct cartProduct = CartProduct.builder()
                 .cartInCart_Product(cart)
                 .productInCart_Product(product)
                 .quantity(50)
                 .build();
+        if (cartProduct.getQuantity() <= stockProduct) {cartProductServices.addProductToCart(cartProduct);}
+    }
 
-        cartProductRepo.save(cartProduct);
+    @Test
+    public void removeProductFromCart() {
+        cartProductServices.removeProductFromCart(1L,1L);
+    }
+
+    @Test
+    public void updateProductInCart() {
+        cartProductServices.updateProductQuantity(1L, 5L, 60);
+    }
+
+    @Test
+    public void getProductInCart() {
+        List<CartProduct> cartProducts = cartProductServices.getProductsFromCart(5L);
+        for (CartProduct cartProduct : cartProducts) {
+            System.out.println(cartProduct.getProductInCart_Product().getProductName() + " : " + cartProduct.getQuantity() + " Pieces");
+        }
     }
 
 
