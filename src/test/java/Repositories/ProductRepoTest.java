@@ -27,6 +27,7 @@ class ProductRepoTest {
                 .price(80000)
                 .createdAt(LocalDateTime.now())
                 .category(Category.LAPTOPS)
+                .productImage(null)
                 .build();
         productSrvices.addProduct(product);
     }

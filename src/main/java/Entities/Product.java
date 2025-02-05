@@ -51,6 +51,10 @@ public class Product {
     @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime updateAt;
 
+    @Lob
+    @Column(name = "product_image")
+    private byte[] productImage;
+
     @OneToMany(mappedBy = "productInCart_Product")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private List<CartProduct> cartProducts = new ArrayList<>();
