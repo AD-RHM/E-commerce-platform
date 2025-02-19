@@ -51,6 +51,9 @@ public class Product {
     @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime updateAt;
 
+    @Column(name = "quantityInStock")
+    private int quantityInStock;
+
     @Lob
     @Column(name = "product_image")
     private byte[] productImage;
@@ -59,8 +62,8 @@ public class Product {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private List<CartProduct> cartProducts = new ArrayList<>();
 
-    @OneToMany(mappedBy = "productInStock_Product")
+    @OneToMany(mappedBy = "productOrder")
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private List<StockProduct> stockProducts = new ArrayList<>();
+    private List<Order> orders = new ArrayList<>();
 
 }

@@ -7,6 +7,8 @@ import org.hibernate.annotations.OnDeleteAction;
 
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
@@ -53,4 +55,8 @@ public class User {
     @OneToOne(mappedBy = "user")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Cart cart;
+
+    @OneToMany(mappedBy = "userOrder")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private List<Order> orders = new ArrayList<>();
 }
