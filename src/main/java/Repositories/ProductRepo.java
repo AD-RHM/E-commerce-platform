@@ -19,7 +19,7 @@ public interface ProductRepo extends JpaRepository<Product, Long> {
             value = "Update product set description = :description, update_at = :update_at where productid = :productid",
             nativeQuery = true
     )
-    void updateProductDescription(@Param("description") String description, @Param("update_at") LocalDateTime update_at, @Param("productid") long productid);
+    void updateProductDescription(@Param("description") String description, @Param("update_at") LocalDateTime update_at, @Param("productid") long id);
 
     @Modifying
     @Transactional
@@ -27,7 +27,7 @@ public interface ProductRepo extends JpaRepository<Product, Long> {
             value = "Update product set product_name = :product_name, update_at = :update_at where productid = :productid",
             nativeQuery = true
     )
-    void updateProductName(@Param("product_name") String product_name, @Param("update_at") LocalDateTime update_at, @Param("productid") long productid);
+    void updateProductName(@Param("product_name") String product_name, @Param("update_at") LocalDateTime update_at, @Param("productid") long id);
 
     @Modifying
     @Transactional
@@ -35,7 +35,7 @@ public interface ProductRepo extends JpaRepository<Product, Long> {
             value = "Update product set price = :price, update_at = :update_at where productid = :productid",
             nativeQuery = true
     )
-    void updateProductPrice(@Param("price") double price, @Param("update_at") LocalDateTime update_at, @Param("productid") long productid);
+    void updateProductPrice(@Param("price") double price, @Param("update_at") LocalDateTime update_at, @Param("productid") long id);
 
 
 

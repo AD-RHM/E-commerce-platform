@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -48,34 +49,34 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.csrf(csrf -> csrf.disable())
-                . authorizeHttpRequests(authorizeRequests ->
-                        authorizeRequests.requestMatchers("/home").hasAnyRole("ADMIN", "USER")
+        http
+                .authorizeHttpRequests(authorizeRequests -> authorizeRequests
+                        .requestMatchers("/css/**","/images/**","/js/**","/fonts/**").permitAll()
                         .requestMatchers("/index").permitAll()
+                        .requestMatchers("/homepage").hasAnyRole("ADMIN","USER")
                         .anyRequest().authenticated())
                 .formLogin(formLogin -> formLogin
                         .passwordParameter("password")
                         .usernameParameter("username")
-                        .loginPage("/LoginPage")
+                        .loginPage("/login")
                         .loginProcessingUrl("/performLogin")
-                        .defaultSuccessUrl("/HomePage", false)
-                        .failureUrl("/LoginPage?error=true")
-                        .failureHandler(new DefaultAuthenticationFailureHandler()))
+                        .defaultSuccessUrl("/homepage", false)
+                        .failureUrl("/login?error=true")
+                        .permitAll())
                 .logout(logout -> logout
                         .logoutUrl("/performLogout")
                         .logoutSuccessUrl("/index")
                         .deleteCookies("JSESSIONID")
-                        .logoutSuccessHandler(logoutSuccessHandler())
                 );
         return http.build();
 
     }
-    @Bean
-    public AuthenticationFailureHandler authenticationFailureHandler() {
-        return new DefaultAuthenticationFailureHandler();
-    }
-    @Bean
-    public LogoutSuccessHandler logoutSuccessHandler() {
-        return new DefaultLogoutSuccessHandler();
-    }
+//    @Bean
+//    public AuthenticationFailureHandler authenticationFailureHandler() {
+//        return new DefaultAuthenticationFailureHandler();
+//    }
+//    @Bean
+//    public LogoutSuccessHandler logoutSuccessHandler() {
+//        return new DefaultLogoutSuccessHandler();
+//    }
 }

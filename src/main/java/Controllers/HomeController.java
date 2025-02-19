@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class HomeController {
 
     //@RequestMapping(method = RequestMethod.GET,path = "/index")
-    @GetMapping("/") // Changed path to root for better convention
-    public String home(){
+    @GetMapping("/index")
+    public String index() {
         return "index";
     }
     @GetMapping("/homepage")
@@ -19,7 +19,7 @@ public class HomeController {
     public String homePage(){
         return "HomePage";
     }
-    @GetMapping("/LoginPage")
+    @GetMapping("/login")
     public String login(){
         return "LoginPage";
     }
