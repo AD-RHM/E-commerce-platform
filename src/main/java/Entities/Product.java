@@ -38,7 +38,7 @@ public class Product {
 
     @Column(name = "Category" , nullable = false)
     @Enumerated(EnumType.STRING)
-    private Category category;
+    private Categories categories;
 
     @Column(name = "Price", nullable = false)
     private double price;
