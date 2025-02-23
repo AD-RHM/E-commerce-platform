@@ -51,21 +51,27 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
-                        .requestMatchers("/css/**","/images/**","/js/**","/fonts/**").permitAll()
+                        .requestMatchers("/Dashboard/css/**","/Dashboard/images/**","/Dashboard/js/**","/Dashboard/fonts/**",
+                                "/UserUI/css/**","/UserUI/images/**","/UserUI/js/**","/UserUI/fonts/**").permitAll()
                         .requestMatchers("/index").permitAll()
-                        .requestMatchers("/homepage").hasAnyRole("ADMIN","USER")
-                        .anyRequest().authenticated())
+//                                .requestMatchers("/templates/Dashboard/**").hasRole("ADMIN")
+//                        .requestMatchers("/templates/Dashboard/**").authenticated()
+                                .anyRequest().authenticated()
+//                        .requestMatchers("/homepage").hasRole("USER")
+
+//                        .anyRequest().authenticated()
+                        )
                 .formLogin(formLogin -> formLogin
+                        .loginPage("/login")
                         .passwordParameter("password")
                         .usernameParameter("username")
-                        .loginPage("/login")
                         .loginProcessingUrl("/performLogin")
-                        .defaultSuccessUrl("/homepage", false)
+//                        .defaultSuccessUrl("/dashboard", false)
                         .failureUrl("/login?error=true")
                         .permitAll())
                 .logout(logout -> logout
                         .logoutUrl("/performLogout")
-                        .logoutSuccessUrl("/index")
+                        .logoutSuccessUrl("/login")
                         .deleteCookies("JSESSIONID")
                 );
         return http.build();

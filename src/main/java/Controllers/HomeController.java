@@ -12,23 +12,23 @@ public class HomeController {
     //@RequestMapping(method = RequestMethod.GET,path = "/index")
     @GetMapping("/index")
     public String index() {
-        return "index";
+        return "/UserUI/index";
     }
     @GetMapping("/homepage")
     @PreAuthorize("hasAnyRole('ADMIN','USER')")
     public String homePage(){
-        return "HomePage";
+        return "/UserUI/HomePage";
     }
     @GetMapping("/login")
     public String login(){
-        return "LoginPage";
+        return "UserUI/LoginPage";
     }
     @GetMapping("/SignIn")
     public String signIn(){
-        return "SignIn";
+        return "UserUI/SignIn";
     }
     @GetMapping("/ProductPage")
     public String productPage(){
-        return "ProductPage";
+        return "UserUI/ProductPage";
     }
 }
